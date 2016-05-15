@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Input.Inking;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -44,19 +45,31 @@ namespace InkingAlphabets
 
         private async void  InkAlphabets_Loaded(object sender, RoutedEventArgs e)
         {
-
-            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
-
-            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            try
             {
-                await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+
+                //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
+                if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                {
+                    await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+                }
+
+                viewModel = (InkAlphabetsViewModel)this.DataContext;
+                await viewModel.LoadPageData();
+
+                InkCanvas1.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected;
+                InkCanvas1.InkPresenter.StrokesErased += InkPresenter_StrokesErased;
             }
-
-            viewModel = (InkAlphabetsViewModel)this.DataContext;
-             await viewModel.LoadPageData();
-
-            InkCanvas1.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected;
-            InkCanvas1.InkPresenter.StrokesErased += InkPresenter_StrokesErased;
+            catch (Exception exp)
+            {
+                if (exp.Message.Equals("No available languages"))
+                {
+                    var msgDialog = new MessageDialog("No languages available/selected.");
+                    msgDialog.Commands.Add(new UICommand("Ok"));
+                    await msgDialog.ShowAsync();
+                }
+            }
         }
         private void InkAlphabets_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -95,10 +108,12 @@ namespace InkingAlphabets
                 if (AlphabetTextboxes.Count != 0)
                 {
                     var AlphabetTextbox = AlphabetTextboxes.Find(a => a.Text.Equals(viewModel.CurrentAlphabet.AlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
-
-                    FontSlider.ValueChanged -= FontSlider_ValueChanged;
-                    FontSlider.Value = AlphabetTextbox.FontSize; //Setting the new letter size to Slider. Syncing both.
-                    FontSlider.ValueChanged += FontSlider_ValueChanged;
+                    if (AlphabetTextbox != null)
+                    {
+                        FontSlider.ValueChanged -= FontSlider_ValueChanged;
+                        FontSlider.Value = AlphabetTextbox.FontSize; //Setting the new letter size to Slider. Syncing both.
+                        FontSlider.ValueChanged += FontSlider_ValueChanged;
+                    }
                 }
             }
             _ignoreCanvas = false;
@@ -180,6 +195,32 @@ namespace InkingAlphabets
             var AlphabetTextbox = AlphabetTextboxes.Find(a => a.Text.Equals(currentAlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
 
             AlphabetTextbox.FontSize = FontSlider.Value;
+        }
+
+        private async void DeleteLanguageButton_Click(object sender, RoutedEventArgs e)
+        {   
+            var msgDialog = new MessageDialog($@"Are you sure, you want to delete this language ""{viewModel.WelcomeTitle}"" completely?");
+            msgDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(async (IUICommand c) =>
+            {
+                var statu = await viewModel.DeleteLanguage();
+
+                if (statu == true)
+                {
+                    var shell = (Shell)Window.Current.Content;
+                    shell.ViewModel.SelectedTopItem = shell.ViewModel.TopItems.First(i => i.PageType == typeof(SelectLanguagePage));
+                }
+                else
+                {
+                    var msgDialog1 = new MessageDialog($"Something went wrong. Please contact us for support.");
+                    msgDialog1.Commands.Add(new UICommand("Ok"));
+                    await msgDialog1.ShowAsync();
+                    //TODO: Log a custom event.
+                }
+
+            })));
+            msgDialog.Commands.Add(new UICommand("No/Cancel"));
+            msgDialog.DefaultCommandIndex = 1;
+            await msgDialog.ShowAsync();
         }
     }
 

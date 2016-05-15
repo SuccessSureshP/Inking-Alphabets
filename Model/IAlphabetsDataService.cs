@@ -11,5 +11,7 @@ namespace InkingAlphabets.Model
         Task<IEnumerable<Alphabet>> GetAlphabets(string language);
 
         Task<bool> SaveAlphabetsAsync(string language, string alphabetsString);
+
+        Task<bool> DeleteAlphabetsAsync(string language);
     }
 }

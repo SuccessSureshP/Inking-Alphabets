@@ -77,13 +77,13 @@
                               Icon="Clear"
                               Label="Clear" />
             </CommandBar.PrimaryCommands>
-            <!--<CommandBar.SecondaryCommands>
-                <AppBarButton Label="Option 1" />
-                <AppBarButton Label="Option 2" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Delete Language" x:Name="DeleteLanguageButton" Click="DeleteLanguageButton_Click" />
+                <!--<AppBarButton Label="Option 2" />
                 <AppBarSeparator />
                 <AppBarButton Label="Show pane"
-                              Command="{x:Bind ViewModel.ShowPaneCommand}" />
-            </CommandBar.SecondaryCommands>-->
+                              Command="{x:Bind ViewModel.ShowPaneCommand}" />-->
+            </CommandBar.SecondaryCommands>
         </CommandBar>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

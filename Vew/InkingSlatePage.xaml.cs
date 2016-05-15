@@ -167,8 +167,7 @@ namespace InkingAlphabets
                                 SlateCanvas.InkPresenter.StrokeContainer.Clear();
                             })));
                             msgDialog.Commands.Add(new UICommand("No/Cancel"));
-                            await msgDialog.ShowAsync();
-                            //TODO: Show message. File saved. Do you want to clear the the slate? Clear if yes.
+                            await msgDialog.ShowAsync();                            
                         }
                     }
                     catch(Exception exp)

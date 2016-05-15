@@ -70,7 +70,23 @@ namespace InkingAlphabets.Model
                 throw exp;
             }
             return true;
+        }
 
+        public async Task<bool> DeleteAlphabetsAsync(string language)
+        {
+            try
+            {
+                var localFolder = ApplicationData.Current.LocalFolder;
+                var alphabetsByLanguageFolderName = await localFolder.GetFolderAsync(App.AlphabetsByLanguageFolderName);
+               var alphabetFileTobeDeleted = await  alphabetsByLanguageFolderName.GetFileAsync(language + ".txt");
+                await alphabetFileTobeDeleted.DeleteAsync(); 
+            }
+            catch (Exception exp)
+            {
+                //TODO Write to logs 
+                throw exp;
+            }
+            return true;
         }
     }
 }

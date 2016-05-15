@@ -29,5 +29,9 @@ namespace InkingAlphabets.Design
         {
             throw new NotImplementedException();
         }
+        public Task<bool> DeleteAlphabetsAsync(string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,11 +44,23 @@ namespace InkingAlphabets
 
         private async void SelectLanguagePage_Loaded(object sender, RoutedEventArgs e)
         {
-            viewModel = (SelectLanguagePageViewModel)this.DataContext;
-            await viewModel.LoadLanguagesAsync();
+            try
+            {
+                viewModel = (SelectLanguagePageViewModel)this.DataContext;
+                await viewModel.LoadLanguagesAsync();
 
-            LanguagesGridView.SelectionChanged -= LanguagesGridView_SelectionChanged;
-            LanguagesGridView.SelectionChanged += LanguagesGridView_SelectionChanged;
+                LanguagesGridView.SelectionChanged -= LanguagesGridView_SelectionChanged;
+                LanguagesGridView.SelectionChanged += LanguagesGridView_SelectionChanged;
+            }
+            catch(Exception exp)
+            {
+                if (exp.Message.Equals("No available languages"))
+                {
+                    var msgDialog = new MessageDialog("No languages available.");                    
+                    msgDialog.Commands.Add(new UICommand("Ok"));
+                    await msgDialog.ShowAsync();
+                }
+            }
         }
 
         private void LanguagesGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)

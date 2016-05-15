@@ -19,6 +19,7 @@ namespace InkingAlphabets.ViewModel
         private string _originalTitle;
         private string _welcomeTitle = string.Empty;
         private Alphabet _currentAlphabet;
+        private Language _selectedLanguage;
 
         private ObservableCollection<Alphabet> _alphabets; 
 
@@ -73,18 +74,22 @@ namespace InkingAlphabets.ViewModel
         {
             try
             {
-                var selectedLanguage = await _languagesDataService.GetSelectedLanguageAsync();
-                WelcomeTitle = selectedLanguage.LanguageName;
-                Alphabets = new ObservableCollection<Alphabet>(await _alphabetsDataService.GetAlphabets(selectedLanguage.LanguageName));
+                _selectedLanguage = await _languagesDataService.GetSelectedLanguageAsync();
+                if (_selectedLanguage == null)
+                    throw new Exception("No available languages");
+                WelcomeTitle = _selectedLanguage.LanguageName;
+                Alphabets = new ObservableCollection<Alphabet>(await _alphabetsDataService.GetAlphabets(_selectedLanguage.LanguageName));
                 if(Alphabets.Count() >  0)
                     CurrentAlphabet = Alphabets[0];
                 else
-                {
+                {                   
                     throw new Exception("No Alphabets found!");
                 }
             }
             catch
             {
+                WelcomeTitle = string.Empty;
+                Alphabets = null;
                 //LOG exception
                 throw;
             }
@@ -93,6 +98,19 @@ namespace InkingAlphabets.ViewModel
         public async Task UpdateAlphabetStream(InkCanvas canvas)
         {
             await CurrentAlphabet.UpdateScreenAsync(canvas);
+        }
+
+        public async Task<bool> DeleteLanguage()
+        {
+            bool deleteResult = false;
+            if(_selectedLanguage != null)
+            {
+               var alphabetsFileDeleted =  await _alphabetsDataService.DeleteAlphabetsAsync(_selectedLanguage.LanguageName);
+                if (alphabetsFileDeleted)
+                    deleteResult = await _languagesDataService.DeleteLanguageAsync(_selectedLanguage);
+            }
+
+            return deleteResult;
         }
     }
 }

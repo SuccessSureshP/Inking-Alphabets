@@ -22,6 +22,7 @@ namespace InkingAlphabets
         public static string SelectLanguagePageTitle = "Select a Language";
         public static string AddNewLanguagePageTitle = "Add New Language";
         public static string InkingSlatePageTitle = "Inking Slate";
+        public static string InkingWordsPageTitle = "Inking Words";
         public static string AboutPageTitle = "About";
         public static string SettingsPageTitle = "Settings";
 

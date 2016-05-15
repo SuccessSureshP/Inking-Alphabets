@@ -46,8 +46,8 @@ namespace InkingAlphabets
             }      
             string alphabetsText;
             AlphabetsRichEditBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out alphabetsText);
-            alphabetsText =  alphabetsText.Trim().TrimEnd().TrimStart();
-            if (alphabetsText.Length == 0 || alphabetsText.Length == 1)
+            alphabetsText = alphabetsText.Trim().TrimEnd().TrimStart().Replace(" ", "");
+            if (alphabetsText.Length == 0)
             {
                 var dialog = ServiceLocator.Current.GetInstance<IDialogService>();
                 await dialog.ShowMessage("Please specify alphabets of the new language","Error");

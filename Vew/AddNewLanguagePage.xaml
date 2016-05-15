@@ -52,12 +52,12 @@
             <TextBlock Grid.Row="1"
                        Grid.ColumnSpan="2"
                        Margin="0,10,0,10"
-                       Text="Write down or copy paste alphabets of new language (one letter per line)"
+                       Text="Write down or copy paste alphabets of new language"
                        TextWrapping="Wrap" />
 
             <RichEditBox x:Name="AlphabetsRichEditBox"
                          Grid.Row="2"
-                         Grid.ColumnSpan="2" />
+                         Grid.ColumnSpan="2" FontSize="100"  />
 
         </Grid>
         </Grid>

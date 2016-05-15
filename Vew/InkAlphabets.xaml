@@ -1,0 +1,160 @@
+﻿<Page x:Class="InkingAlphabets.InkAlphabets"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:InkingAlphabets"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:inkTools="using:Microsoft.Labs.InkToolbarControl"
+      DataContext="{Binding InkAlphabetsViewModelInstance,
+                            Source={StaticResource Locator}}"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Foreground="White">
+            <CommandBar.Content>
+                <RelativePanel Width="625" x:Name="TitlePanel">
+                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="{Binding WelcomeTitle}" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                RelativePanel.LeftOf="InkToolbar"
+                                x:Name="SizePanel">
+                        <TextBlock Text="Size"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource AppTitleTextBlockStyle}"></TextBlock>
+                        <Slider Width="150"
+                                Orientation="Horizontal"
+                                SnapsTo="Ticks"
+                                Minimum="100"
+                                Value="400"
+                                Maximum="1000"
+                                TickPlacement="BottomRight"
+                                TickFrequency="25"
+                                IsDirectionReversed="False"
+                                Name="FontSlider"
+                                ValueChanged="FontSlider_ValueChanged"
+                                Foreground="White"
+                                Background="White"
+                                Margin="15,8,0,0" />
+                    </StackPanel>
+                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  RelativePanel.AlignRightWithPanel="True"  Margin="10,0,0,0"
+                                         PenColor="#0051D5"
+                                         PenSize="25,25"                                         
+                                         ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                         ButtonForeground="White"></inkTools:InkToolbar>
+                </RelativePanel>               
+            </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <!--<AppBarButton Foreground="White"
+                              Icon="Back"
+                              Label="Previous"
+                              x:Name="AppbarButtonMakeSmall"
+                              Click="AppbarButtonMakeSmall_Click" />
+                <AppBarButton Foreground="White"
+                              Icon="Forward"
+                              Label="Next"
+                              x:Name="AppbarButtonMakeBig"
+                              Click="AppbarButtonMakeBig_Click" />-->
+                <AppBarButton Foreground="White"
+                              Icon="Back"
+                              Label="Previous"
+                              x:Name="AppbarButtonPrevious"
+                              Click="AppbarButtonPrevious_Click" />
+                <AppBarButton Foreground="White"
+                              Icon="Forward"
+                              Label="Next"
+                              x:Name="AppbarButtonNext"
+                              Click="AppbarButtonNext_Click" />
+                <AppBarButton x:Name="AppbarButtonClear"
+                              Click="AppbarButtonClear_Click"
+                              Foreground="White"
+                              Icon="Clear"
+                              Label="Clear" />
+            </CommandBar.PrimaryCommands>
+            <!--<CommandBar.SecondaryCommands>
+                <AppBarButton Label="Option 1" />
+                <AppBarButton Label="Option 2" />
+                <AppBarSeparator />
+                <AppBarButton Label="Show pane"
+                              Command="{x:Bind ViewModel.ShowPaneCommand}" />
+            </CommandBar.SecondaryCommands>-->
+        </CommandBar>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <FlipView x:Name="AlphabetslistView"
+                      ItemsSource="{Binding Alphabets}"
+                      SelectedItem="{Binding CurrentAlphabet,
+                                             Mode=TwoWay}"
+                      SelectionChanged="AlphabetslistView_SelectionChanged">
+                <FlipView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </FlipView.ItemsPanel>
+                <FlipView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                BorderThickness="1,1,1,1">
+                            <TextBlock Name="AlphabeetTextbox"
+                                       Margin="0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="400"
+                                       FontStretch="Expanded"
+                                       Padding="0"
+                                       Text="{Binding AlphabetCharacter}"
+                                       TextAlignment="DetectFromContent" />
+                        </Border>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
+            <Grid Grid.Column="1"
+                  Background="White">
+                <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                BorderThickness="0,1,1,1">
+                    <InkCanvas x:Name="InkCanvas1" />
+                </Border>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+    <!-- Responsive VisualStates -->
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState>
+                <!-- VisualState to be triggered when window width is >=720 effective pixels -->
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="720" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <!-- Widest possible layout moves some elements around to optimize for more available width 
+                        and keeps SplitView pane always showing inline -->
+                    <Setter Target="TitlePanel.Width"
+                            Value="700" />                  
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState>
+                <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="548" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <!-- For intermediate window widths as well as most phones on landscape orientation, 
+                        this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
+                    <Setter Target="TitlePanel.Width"
+                            Value="525" />
+                </VisualState.Setters>
+            </VisualState>           
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+</Page>

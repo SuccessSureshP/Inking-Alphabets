@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/bin
+/AppPackages/Inking Alphabets_1.0.0.0_Debug_Test
+/BundleArtifacts
+/obj

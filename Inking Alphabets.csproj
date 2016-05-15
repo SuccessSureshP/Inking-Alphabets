@@ -126,6 +126,9 @@
     <Compile Include="Vew\InkingSlatePage.xaml.cs">
       <DependentUpon>InkingSlatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vew\InkingWordsPage.xaml.cs">
+      <DependentUpon>InkingWordsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vew\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,7 @@
     <Compile Include="ViewModel\AddNewLanguagePageViewModel.cs" />
     <Compile Include="ViewModel\InkAlphabetsViewModel.cs" />
     <Compile Include="ViewModel\InkingSlatePageViewModel.cs" />
+    <Compile Include="ViewModel\InkingWordsViewModel.cs" />
     <Compile Include="ViewModel\LanguagesViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SelectLanguagePageViewModel.cs" />
@@ -193,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vew\InkingSlatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vew\InkingWordsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

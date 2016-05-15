@@ -26,7 +26,7 @@ namespace InkingAlphabets.ViewModel
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.SelectLanguagePageTitle, PageType = typeof(SelectLanguagePage) });
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.AddNewLanguagePageTitle, PageType = typeof(AddNewLanguagePage) });
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingSlatePageTitle, PageType = typeof(InkingSlatePage) });
-            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingWordsPageTitle, PageType = typeof(InkingSlatePage) });
+            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingWordsPageTitle, PageType = typeof(InkingWordsPage) });
 
 
             //BottomItems.Add(new NavigationItem { Icon = "", DisplayName = App.SettingsPageTitle, PageType = typeof(SettingsPage) });

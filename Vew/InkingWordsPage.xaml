@@ -1,12 +1,12 @@
 ﻿<Page
-    x:Class="InkingAlphabets.InkingSlatePage"
+    x:Class="InkingAlphabets.InkingWordsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:InkingAlphabets"
+    xmlns:local="using:InkingAlphabets.Vew"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:inkTools="using:Microsoft.Labs.InkToolbarControl" 
-    DataContext="{Binding InkingSlatePageViewModelInstance,
+    DataContext="{Binding InkingWordsViewModelInstance,
                             Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
@@ -20,12 +20,12 @@
             <CommandBar.Content>
                 <Grid Height="48">
                     <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
                                Text="{Binding PageTitle}" 
                                />
                         <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"
-                                         PenSize="25,25" 
+                                         PenSize="15,15" 
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          VerticalAlignment="Top" HorizontalAlignment="Right"
                                          ButtonForeground="White"></inkTools:InkToolbar>
@@ -37,7 +37,7 @@
                               Click="AppbarButtonClear_Click"
                               Foreground="White"
                               Icon="Clear"
-                              Label="Clear" />              
+                              Label="Clear" />
                 <AppBarToggleButton x:Name="AppbarButtonPan"
                                     Icon="BrowsePhotos"
                                     Checked="AppbarButtonPan_Checked"
@@ -49,29 +49,33 @@
                                     Icon="SelectAll"       
                                     Label="Grid" ClickMode="Press" 
                                      Foreground="White"
-                                   />
-                <AppBarButton x:Name="AppbarButtonOpen"
-                                    Icon="OpenFile"       
-                                    Label="Open" 
-                                    Foreground="White"
-                                    Click="AppbarButtonOpen_Click"
-                                   />
-                <AppBarButton x:Name="AppbarButtonSave"
-                                    Icon="Save"       
-                                    Label="Save" 
-                                    Foreground="White"
-                                    Click="AppbarButtonSave_Click"
-                                   />                
+                                   />               
             </CommandBar.PrimaryCommands>
         </CommandBar>
-        <Grid Background="Black" Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+        <Grid Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 BorderThickness="1,1,1,1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,5,0,5">
+            <RelativePanel Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                <TextBlock Text="Write or copy paste a word here: " x:Name="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                <TextBox  FontSize="20" Text="APPLE" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
+            </RelativePanel>
+            </Grid>
+            <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Grid Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                BorderThickness="0,1,0,0"
+                  Background="Black">
             <ScrollViewer x:Name="PenCanvasScrollViewer" ZoomMode="Enabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
                 <Grid Width="5000" Height="2000" Background="White">
                     <Grid x:Name="GridLinesContainer"  Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <InkCanvas x:Name="SlateCanvas" />
                 </Grid>
             </ScrollViewer>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

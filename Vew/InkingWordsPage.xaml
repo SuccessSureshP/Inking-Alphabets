@@ -18,19 +18,41 @@
         <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     Foreground="White">
             <CommandBar.Content>
-                <Grid Height="48">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
-                               Text="{Binding PageTitle}" 
-                               />
-                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
+                <RelativePanel Width="625" x:Name="TitlePanel">
+                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="{Binding WelcomeTitle}" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    <StackPanel 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                RelativePanel.LeftOf="InkToolbar"
+                                x:Name="SizePanel">
+                        <TextBlock Text="Size"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource AppTitleTextBlockStyle}"></TextBlock>
+                        <Slider Width="150"
+                                Orientation="Horizontal"
+                                SnapsTo="Ticks"
+                                Minimum="50"
+                                Value="150"
+                                Maximum="1000"
+                                TickPlacement="BottomRight"
+                                TickFrequency="25"
+                                IsDirectionReversed="False"
+                                Name="FontSlider"
+                                ValueChanged="FontSlider_ValueChanged"
+                                Foreground="White"
+                                Background="White"
+                                Margin="15,8,0,0" />
+                    </StackPanel>                   
+                    <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"
                                          PenSize="15,15" 
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                         VerticalAlignment="Top" HorizontalAlignment="Right"
-                                         ButtonForeground="White"></inkTools:InkToolbar>
-                    </StackPanel>
-                </Grid>
+                                         VerticalAlignment="Top" RelativePanel.AlignRightWithPanel="True"
+                                         ButtonForeground="White">
+                    </inkTools:InkToolbar>
+                </RelativePanel>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AppbarButtonClear"
@@ -65,7 +87,7 @@
                 <TextBox  FontSize="20" Text="APPLE" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
             </RelativePanel>
             </Grid>
-            <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" x:Name="SampleTextblock" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
             <Grid Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 BorderThickness="0,1,0,0"
                   Background="Black">

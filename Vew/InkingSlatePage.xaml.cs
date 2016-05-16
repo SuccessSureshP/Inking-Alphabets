@@ -80,7 +80,7 @@ namespace InkingAlphabets
                     Y1 = 0,
                     Y2 = 0,
                     Stretch = Stretch.Fill,
-                    Stroke = new SolidColorBrush(yPos % 100 == 0 ? Colors.Gray : Colors.LightGray),
+                    Stroke = new SolidColorBrush(yPos % 140 == 0 ? Colors.Gray : Colors.LightGray),
                     StrokeThickness = 1,
                     Margin = new Thickness(0, yPos, 0, 0),
                     VerticalAlignment = VerticalAlignment.Top
@@ -95,7 +95,7 @@ namespace InkingAlphabets
                     Y1 = 0,
                     Y2 = 1,
                     Stretch = Stretch.Fill,
-                    Stroke = new SolidColorBrush(xPos % 100 == 0 ? Colors.Gray : Colors.LightGray),
+                    Stroke = new SolidColorBrush(xPos % 140 == 0 ? Colors.Gray : Colors.LightGray),
                     StrokeThickness = 1,
                     Margin = new Thickness(xPos, 0, 0, 0),
                     HorizontalAlignment = HorizontalAlignment.Left

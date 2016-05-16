@@ -62,6 +62,11 @@
                               x:Name="AppbarButtonMakeBig"
                               Click="AppbarButtonMakeBig_Click" />-->
                 <AppBarButton Foreground="White"
+                              Icon="Previous"
+                              Label="Go to Start"
+                              x:Name="GotoStartAppbarButton"
+                              Click="GotoStartButton_Click" />
+                <AppBarButton Foreground="White"
                               Icon="Back"
                               Label="Previous"
                               x:Name="AppbarButtonPrevious"
@@ -71,6 +76,11 @@
                               Label="Next"
                               x:Name="AppbarButtonNext"
                               Click="AppbarButtonNext_Click" />
+                <AppBarButton Foreground="White"
+                              Icon="Next"
+                              Label="Go to End"
+                              x:Name="GotoEndAppbarButton"
+                              Click="GotoEndButton_Click" />
                 <AppBarButton x:Name="AppbarButtonClear"
                               Click="AppbarButtonClear_Click"
                               Foreground="White"
@@ -78,7 +88,9 @@
                               Label="Clear" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Delete Language" x:Name="DeleteLanguageButton" Click="DeleteLanguageButton_Click" />
+                <AppBarButton Label="Go to Start" x:Name="GotoStartSecondaryAppbarButton" Click="GotoStartButton_Click" Visibility="Collapsed"/>
+                <AppBarButton Label="Go to End" x:Name="GotoEndSecondaryAppbarButton" Click="GotoEndButton_Click"  Visibility="Collapsed"/>
+                <AppBarButton Icon="Delete" Label="Delete Language" x:Name="DeleteLanguageButton" Click="DeleteLanguageButton_Click" />
                 <!--<AppBarButton Label="Option 2" />
                 <AppBarSeparator />
                 <AppBarButton Label="Show pane"
@@ -140,7 +152,7 @@
                     <!-- Widest possible layout moves some elements around to optimize for more available width 
                         and keeps SplitView pane always showing inline -->
                     <Setter Target="TitlePanel.Width"
-                            Value="700" />                  
+                            Value="700" />                   
                 </VisualState.Setters>
             </VisualState>
             <VisualState>
@@ -153,6 +165,11 @@
                         this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
                     <Setter Target="TitlePanel.Width"
                             Value="525" />
+                    <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
+                    <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
+                    <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
+                    <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
+                    
                 </VisualState.Setters>
             </VisualState>           
         </VisualStateGroup>

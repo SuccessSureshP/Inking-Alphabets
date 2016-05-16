@@ -159,15 +159,32 @@ namespace InkingAlphabets
         private void UpdateAppBarNavButtons()
         {
             if (AlphabetslistView.SelectedIndex == 0)
+            {
                 AppbarButtonPrevious.IsEnabled = false;
+                GotoStartSecondaryAppbarButton.IsEnabled = false;
+                GotoStartAppbarButton.IsEnabled = false;
+            }
             else
+            {
                 AppbarButtonPrevious.IsEnabled = true;
+                GotoStartSecondaryAppbarButton.IsEnabled = true;
+                GotoStartAppbarButton.IsEnabled = true;
+            }
 
 
             if (AlphabetslistView.SelectedIndex == AlphabetslistView.Items.Count - 1)
+            {
                 AppbarButtonNext.IsEnabled = false;
+                GotoEndSecondaryAppbarButton.IsEnabled = false;
+                GotoEndAppbarButton.IsEnabled = false;
+
+            }
             else
+            {
                 AppbarButtonNext.IsEnabled = true;
+                GotoEndSecondaryAppbarButton.IsEnabled = true;
+                GotoEndAppbarButton.IsEnabled = true;
+            }
         }
 
         //private void AppbarButtonMakeSmall_Click(object sender, RoutedEventArgs e)
@@ -230,6 +247,24 @@ namespace InkingAlphabets
             msgDialog.Commands.Add(new UICommand("No/Cancel"));
             msgDialog.DefaultCommandIndex = 1;
             await msgDialog.ShowAsync();
+        }
+
+        private void GotoStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlphabetslistView.SelectedIndex != 0)
+            {
+                AlphabetslistView.SelectedIndex = 0;
+                UpdateAppBarNavButtons();
+            }
+        }
+
+        private void GotoEndButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlphabetslistView.SelectedIndex <= AlphabetslistView.Items.Count - 2)
+            {
+                AlphabetslistView.SelectedIndex = AlphabetslistView.Items.Count - 1;
+                UpdateAppBarNavButtons();
+            }
         }
     }
 

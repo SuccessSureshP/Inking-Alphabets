@@ -63,6 +63,12 @@
                                     Click="AppbarButtonSave_Click"
                                    />                
             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="ShareAppBarButton"
+                              Icon="ReShare"
+                              Label="Share"
+                              Click="ShareAppBarButton_Click"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
         <Grid Background="Black" Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 BorderThickness="1,1,1,1">

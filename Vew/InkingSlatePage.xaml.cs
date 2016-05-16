@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -38,7 +39,36 @@ namespace InkingAlphabets
             this.InitializeComponent();
             SlateCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen | Windows.UI.Core.CoreInputDeviceTypes.Touch;
             //SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
-            this.Loaded += InkingSlatePage_Loaded;            
+            this.Loaded += InkingSlatePage_Loaded;
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            //DataRequest request = args.Request;
+
+            //StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync("Shared.gif", CreationCollisionOption.ReplaceExisting);
+            //if (null != file)
+            //{
+            //    try
+            //    {
+            //        using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            //        {
+            //            await SlateCanvas.InkPresenter.StrokeContainer.SaveAsync(stream);
+            //        }
+            //    }
+            //    catch
+            //    {
+
+            //    }
+            //    //var randomAccessStreamReference = RandomAccessStreamReference.CreateFromFile(file);
+            //    //List<IStorageItem> items = new List<IStorageItem>();
+            //    //items.Add(file);
+            //    request.Data.SetText("Sample");
+            //}
+            ////request.Data.SetText("Sample");
+            //request.Data.Properties.Title = "I used InkAlphabets App to draw this.";
         }
 
         private async void InkingSlatePage_Loaded(object sender, RoutedEventArgs e)
@@ -241,6 +271,9 @@ namespace InkingAlphabets
             //}
         }
 
-
+        private void ShareAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
+        }
     }
 }

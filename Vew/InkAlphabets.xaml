@@ -124,8 +124,8 @@
                     <InkCanvas x:Name="InkCanvas1" />
                 </Border>
             </Grid>
+            <ProgressRing Height="200" Width="200" Grid.ColumnSpan="2" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="DataLoadingProgressRingControl"  IsActive="False"/>
         </Grid>
-
     </Grid>
 
     <!-- Responsive VisualStates -->

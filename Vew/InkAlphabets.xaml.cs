@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -60,6 +61,14 @@ namespace InkingAlphabets
 
                 InkCanvas1.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected;
                 InkCanvas1.InkPresenter.StrokesErased += InkPresenter_StrokesErased;
+                //Disabling flip view and canvas for 10 seconds to make all letters to load properly. 
+                DataLoadingProgressRingControl.IsActive = true;
+                AlphabetslistView.IsEnabled = false;
+                InkCanvas1.Visibility = Visibility.Collapsed;
+                await Task.Delay(1000);              
+                DataLoadingProgressRingControl.IsActive = false;
+                AlphabetslistView.IsEnabled = true;
+                InkCanvas1.Visibility = Visibility.Visible;
             }
             catch (Exception exp)
             {

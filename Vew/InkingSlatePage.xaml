@@ -22,6 +22,7 @@
                     <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
                                Text="{Binding PageTitle}" 
+                               Width="1000"
                                />
                         <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"

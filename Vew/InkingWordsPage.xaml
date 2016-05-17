@@ -20,7 +20,9 @@
             <CommandBar.Content>
                 <RelativePanel Width="625" x:Name="TitlePanel">
                     <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
-                               Text="{Binding WelcomeTitle}" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                               Text="{Binding PageTitle}" RelativePanel.AlignVerticalCenterWithPanel="True"
+                               Width="1000"
+                               />
                     <StackPanel 
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right"

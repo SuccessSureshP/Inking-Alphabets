@@ -8,7 +8,8 @@
       DataContext="{Binding InkAlphabetsViewModelInstance,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <RelativePanel>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -16,19 +17,24 @@
         <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     Foreground="White">
             <CommandBar.Content>
-                <RelativePanel Width="625" x:Name="TitlePanel">
-                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
-                               Text="{Binding WelcomeTitle}" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                    <StackPanel Grid.Column="1"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="{Binding WelcomeTitle}" x:Name="TitlePanel"
+                                   Width="1000"/>
+                        <StackPanel Grid.Column="1"
                                 Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                RelativePanel.LeftOf="InkToolbar"
+                                HorizontalAlignment="Right"                                
                                 x:Name="SizePanel">
-                        <TextBlock Text="Size"
+                            <TextBlock Text="Size"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource AppTitleTextBlockStyle}"></TextBlock>
-                        <Slider Width="150"
+                            <Slider Width="150"
                                 Orientation="Horizontal"
                                 SnapsTo="Ticks"
                                 Minimum="100"
@@ -41,15 +47,16 @@
                                 ValueChanged="FontSlider_ValueChanged"
                                 Foreground="White"
                                 Background="White"
-                                Margin="15,8,0,0" />
-                    </StackPanel>
-                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  RelativePanel.AlignRightWithPanel="True"  Margin="10,0,0,0"
+                                Margin="15,8,0,0"/>
+                        </StackPanel>
+                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  Margin="10,0,0,0" Grid.Column="2"
                                          PenColor="#0051D5"
                                          PenSize="25,25"                                         
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          ButtonForeground="White"></inkTools:InkToolbar>
-                </RelativePanel>               
-            </CommandBar.Content>
+                    </Grid>
+
+                </CommandBar.Content>
             <CommandBar.PrimaryCommands>
                 <!--<AppBarButton Foreground="White"
                               Icon="Back"
@@ -65,7 +72,7 @@
                               Icon="Previous"
                               Label="Go to Start"
                               x:Name="GotoStartAppbarButton"
-                              Click="GotoStartButton_Click" />
+                              Click="GotoStartButton_Click"/>
                 <AppBarButton Foreground="White"
                               Icon="Back"
                               Label="Previous"
@@ -146,32 +153,53 @@
             <VisualState>
                 <!-- VisualState to be triggered when window width is >=720 effective pixels -->
                 <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="720" />
+                    <AdaptiveTrigger MinWindowWidth="1000" />
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
                     <!-- Widest possible layout moves some elements around to optimize for more available width 
                         and keeps SplitView pane always showing inline -->
-                    <Setter Target="TitlePanel.Width"
-                            Value="700" />                   
-                </VisualState.Setters>
+                    <!--<Setter Target="TitlePanel.Width"
+                            Value="700" />-->
+                        <Setter Target="FontSlider.Width" Value="120"/>
+                    </VisualState.Setters>
             </VisualState>
             <VisualState>
                 <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
                 <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="548" />
+                        <AdaptiveTrigger MinWindowWidth="600" />
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
                     <!-- For intermediate window widths as well as most phones on landscape orientation, 
                         this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
-                    <Setter Target="TitlePanel.Width"
-                            Value="525" />
-                    <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
-                    <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
-                    <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
-                    <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
-                    
-                </VisualState.Setters>
-            </VisualState>           
-        </VisualStateGroup>
+                    <!--<Setter Target="TitlePanel.Text"
+                            Value="Changed" />-->
+                        <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
+                        <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
+                        <Setter Target="FontSlider.Width" Value="60"/>
+
+                    </VisualState.Setters>
+            </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePanel.Width" Value="50" />
+                        <Setter Target="FontSlider.Width" Value="60"/>
+                        <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
+                        <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
+                        <Setter Target="AppbarButtonNext.Visibility" Value="Collapsed" />
+                        <Setter Target="AppbarButtonPrevious.Visibility" Value="Collapsed" />                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
 </Page>
+
+    

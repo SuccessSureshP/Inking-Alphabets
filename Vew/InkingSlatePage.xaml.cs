@@ -171,7 +171,7 @@ namespace InkingAlphabets
                         var msgDialog = new MessageDialog("Sorry. Something went wrong. Could not open your Inking file :( ");
                         msgDialog.Commands.Add(new UICommand("Ok"));                        
                         await msgDialog.ShowAsync();
-                        //ToDO:Add Custom event
+                        Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Opening Inking file failed with exception :{ex.Message}");
                     }
                 }
             }
@@ -205,7 +205,7 @@ namespace InkingAlphabets
                         var msgDialog = new MessageDialog("Sorry. Something went wrong. Could not save your Inking :( ");
                         msgDialog.Commands.Add(new UICommand("Ok"));
                         await msgDialog.ShowAsync();
-                        //ToDO:Add Custom event
+                        Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Inking Slate Save Failed with Exception:{exp.Message}");
                     }
                 }
             }

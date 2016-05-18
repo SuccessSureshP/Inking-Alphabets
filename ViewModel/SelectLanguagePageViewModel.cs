@@ -86,10 +86,9 @@ namespace InkingAlphabets.ViewModel
 
                
             }
-            catch
+            catch (Exception exp)
             {
-                //LOG exception
-                throw;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent("LoadLanguagesAsync failed with Exception" + exp.Message);
             }
         }
 

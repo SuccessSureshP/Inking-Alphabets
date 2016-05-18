@@ -39,8 +39,7 @@ namespace InkingAlphabets.Model
             }
             catch (Exception exp)
             {
-                //TODO: Add to APP Insights
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"AddNewLanguageAsync Failed with Exception:{exp.Message}");
             }
             return status;                        
         }
@@ -62,8 +61,7 @@ namespace InkingAlphabets.Model
             }
             catch (Exception exp)
             {
-                //TODO: Add to APP Insights
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"DeleteLanguageAsync Failed with Exception:{exp.Message}");
             }
             return status;
         }
@@ -80,8 +78,7 @@ namespace InkingAlphabets.Model
             }
             catch (Exception exp)
             {
-                //TODO: Add to APP Insights
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"GetLanguagesAsync Failed with Exception:{exp.Message}");
             }
             return _languages;
         }
@@ -114,8 +111,7 @@ namespace InkingAlphabets.Model
             }
             catch(Exception exp)
             {
-                //TODO: Add AppInsights
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"GetSelectedLanguageAsync Failed with Exception:{exp.Message}");               
             }
             return selectedLanguage;            
         }
@@ -130,8 +126,7 @@ namespace InkingAlphabets.Model
             }
             catch (Exception exp)
             {
-                //TODO: Add AppInsights
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"SelectNewLanguage Failed with Exception:{exp.Message}");                
             }
             return status;
         }
@@ -156,7 +151,7 @@ namespace InkingAlphabets.Model
             }
             catch(Exception exp)
             {
-                //TODO  Add AppInsights
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"CopyLocalDatabaseToLocalStateFolderAsync Failed with Exception:{exp.Message}");
                 throw exp;
             }
         }

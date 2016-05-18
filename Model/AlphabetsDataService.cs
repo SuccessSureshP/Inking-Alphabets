@@ -68,8 +68,11 @@ namespace InkingAlphabets.Model
             }
             catch(Exception exp)
             {
-                //TODO Write to logs 
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"SaveAlphabetsAsync Failed with Exception:{exp.Message}");
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"language Selected :{language}");
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"AlphabetsString :{alphabetsString}");
+
+                return false;
             }
             return true;
         }
@@ -85,8 +88,9 @@ namespace InkingAlphabets.Model
             }
             catch (Exception exp)
             {
-                //TODO Write to logs 
-                throw exp;
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"DeleteAlphabetsAsync Failed with Exception:{exp.Message}");
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"language Selected :{language}");
+                return false;
             }
             return true;
         }

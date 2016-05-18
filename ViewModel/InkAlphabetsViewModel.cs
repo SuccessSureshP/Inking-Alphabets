@@ -103,11 +103,18 @@ namespace InkingAlphabets.ViewModel
         public async Task<bool> DeleteLanguage()
         {
             bool deleteResult = false;
-            if(_selectedLanguage != null)
+            try
             {
-               var alphabetsFileDeleted =  await _alphabetsDataService.DeleteAlphabetsAsync(_selectedLanguage.LanguageName);
-                if (alphabetsFileDeleted)
-                    deleteResult = await _languagesDataService.DeleteLanguageAsync(_selectedLanguage);
+                if (_selectedLanguage != null)
+                {
+                    var alphabetsFileDeleted = await _alphabetsDataService.DeleteAlphabetsAsync(_selectedLanguage.LanguageName);
+                    if (alphabetsFileDeleted)
+                        deleteResult = await _languagesDataService.DeleteLanguageAsync(_selectedLanguage);
+                }
+            }
+            catch (Exception exp)
+            {
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Deleting Language Failed with Exception:{exp.Message}");
             }
 
             return deleteResult;

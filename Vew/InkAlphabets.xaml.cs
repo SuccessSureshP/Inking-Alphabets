@@ -240,7 +240,7 @@ namespace InkingAlphabets
                     var msgDialog1 = new MessageDialog($"Something went wrong. Please contact us for support.");
                     msgDialog1.Commands.Add(new UICommand("Ok"));
                     await msgDialog1.ShowAsync();
-                    //TODO: Log a custom event.
+                    Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Deleting Language Failed");
                 }
 
             })));

@@ -98,14 +98,14 @@
                         <ListView Grid.Row="1"
                                   ItemsSource="{x:Bind ViewModel.TopItems}"
                                   SelectedItem="{x:Bind ViewModel.SelectedTopItem, Mode=TwoWay, Converter={StaticResource NavigationItemToObjectConverter}}"
-                                  Style="{StaticResource MenuNavigationListViewStyle}" />
+                                  Style="{StaticResource MenuNavigationListViewStyle}" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" />
 
 
                         <!--  bottom menu  -->
                         <ListView Grid.Row="2"
                                   ItemsSource="{x:Bind ViewModel.BottomItems}"
                                   SelectedItem="{x:Bind ViewModel.SelectedBottomItem, Mode=TwoWay, Converter={StaticResource NavigationItemToObjectConverter}}"
-                                  Style="{StaticResource MenuNavigationListViewStyle}" />
+                                  Style="{StaticResource MenuNavigationListViewStyle}" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"/>
                     </Grid>
                 </Border>
             </SplitView.Pane>

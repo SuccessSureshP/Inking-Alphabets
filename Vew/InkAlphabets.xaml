@@ -33,7 +33,7 @@
                                 x:Name="SizePanel">
                             <TextBlock Text="Size"
                                    VerticalAlignment="Center"
-                                   Style="{StaticResource AppTitleTextBlockStyle}"></TextBlock>
+                                   Style="{StaticResource AppcontentTextBlockStyle}"></TextBlock>
                             <Slider Width="150"
                                 Orientation="Horizontal"
                                 SnapsTo="Ticks"

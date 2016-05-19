@@ -31,7 +31,7 @@
                                 x:Name="SizePanel">
                         <TextBlock Text="Size"
                                    VerticalAlignment="Center"
-                                   Style="{StaticResource AppTitleTextBlockStyle}"></TextBlock>
+                                   Style="{StaticResource AppcontentTextBlockStyle}"></TextBlock>
                         <Slider Width="150"
                                 Orientation="Horizontal"
                                 SnapsTo="Ticks"
@@ -92,7 +92,7 @@
                 <TextBlock Text="Write or copy paste a word here: " x:Name="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <TextBox  FontSize="20" Text="APPLE" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
                 </RelativePanel>
-                <Button Content="Recognize English text" x:Name="RecognizeButton" Click="RecognizeButton_Click" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Button Content="Recognize English text" x:Name="RecognizeButton" Click="RecognizeButton_Click" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White"/>
             </Grid>
             <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" x:Name="SampleTextblock" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
             <Grid Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"

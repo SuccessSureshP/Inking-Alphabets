@@ -32,11 +32,13 @@ namespace InkingAlphabets
     {
         private InkingWordsViewModel viewModel;
         private Boolean _isInitialized;
+        private readonly InkRecognizerContainer _inkRecognizerContainer;
         public InkingWordsPage()
         {
             this.InitializeComponent();
             SlateCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen | Windows.UI.Core.CoreInputDeviceTypes.Touch;
             this.Loaded += InkingWordsPage_Loaded;
+            _inkRecognizerContainer = new InkRecognizerContainer();
         }
 
         private async void InkingWordsPage_Loaded(object sender, RoutedEventArgs e)
@@ -139,6 +141,42 @@ namespace InkingAlphabets
             if (SampleTextblock == null)
                 return;           
             SampleTextblock.FontSize = FontSlider.Value;
+        }
+
+        private async void RecognizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var str = string.Empty;
+            MessageDialog msgDialog = null;
+            var currentStrokes =
+     SlateCanvas.InkPresenter.StrokeContainer.GetStrokes();
+            if (currentStrokes.Count > 0)
+            {
+                var recognitionResults = await _inkRecognizerContainer.RecognizeAsync(
+                     SlateCanvas.InkPresenter.StrokeContainer,
+                     InkRecognitionTarget.All);
+
+                if (recognitionResults.Count > 0)
+                {
+                    // Display recognition result                   
+                    foreach (var r in recognitionResults)
+                    {
+                        str += $"{r.GetTextCandidates()[0]} ";
+                    }
+                    msgDialog = new MessageDialog($"Recognized the text \"{str}\".");
+                }
+                else
+                {
+                    str = "No text recognized.";
+                    msgDialog = new MessageDialog(str);
+                }
+            }
+            else
+            {
+                str = "Write something to recognize.";
+                msgDialog = new MessageDialog(str);
+            }
+
+            await msgDialog.ShowAsync();
         }
     }
 }

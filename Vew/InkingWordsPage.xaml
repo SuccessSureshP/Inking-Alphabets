@@ -84,10 +84,15 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,5,0,5">
-            <RelativePanel Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RelativePanel Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                 <TextBlock Text="Write or copy paste a word here: " x:Name="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <TextBox  FontSize="20" Text="APPLE" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
-            </RelativePanel>
+                </RelativePanel>
+                <Button Content="Recognize English text" x:Name="RecognizeButton" Click="RecognizeButton_Click" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
             <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" x:Name="SampleTextblock" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
             <Grid Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -34,5 +35,12 @@ namespace InkingAlphabets.Common
                 }
             }
         }
+    }
+
+
+    public class ColorClass
+    {
+        public Color Pencolor { get; set; }
+        public string Name { set; get; }
     }
 }

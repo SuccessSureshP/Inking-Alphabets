@@ -5,10 +5,10 @@
     xmlns:local="using:InkingAlphabets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:inkTools="using:Microsoft.Labs.InkToolbarControl" 
     DataContext="{Binding InkingSlatePageViewModelInstance,
                             Source={StaticResource Locator}}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:userControls="using:InkingAlphabets.UserControls" >
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -20,25 +20,34 @@
             <CommandBar.Content>
                 <Grid Height="48">
                     <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
                                Text="{Binding PageTitle}" 
                                Width="1000"
                                />
-                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
+                        <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"
                                          PenSize="25,25" 
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          VerticalAlignment="Top" HorizontalAlignment="Right"
-                                         ButtonForeground="White"></inkTools:InkToolbar>
+                                         ButtonForeground="White"></inkTools:InkToolbar>-->
                     </StackPanel>
                 </Grid>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
+                <AppBarButton  Label="Color" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
+                                                                PropertyChanged="SlateInkPenSelectorControl_PropertyChanged"  
+                                                                CloseClicked="SlateInkPenSelectorControl_CloseClicked"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </AppBarButton >
                 <AppBarButton x:Name="AppbarButtonClear"
                               Click="AppbarButtonClear_Click"
-                              Foreground="White"
+                              Foreground="White"                              
                               Icon="Clear"
-                              Label="Clear" />              
+                              Label="Clear" />
                 <AppBarToggleButton x:Name="AppbarButtonPan"
                                     Icon="BrowsePhotos"
                                     Checked="AppbarButtonPan_Checked"
@@ -62,7 +71,7 @@
                                     Label="Save" 
                                     Foreground="White"
                                     Click="AppbarButtonSave_Click"
-                                   />                
+                                   />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="ShareAppBarButton"

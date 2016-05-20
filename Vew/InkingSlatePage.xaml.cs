@@ -1,4 +1,5 @@
-﻿using InkingAlphabets.ViewModel;
+﻿using InkingAlphabets.UserControls;
+using InkingAlphabets.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,14 +32,14 @@ namespace InkingAlphabets
     /// </summary>
     public sealed partial class InkingSlatePage : Page
     {
-        private InkingSlatePageViewModel viewModel; 
-        private InkDrawingAttributes _blackDrawingAttributes = new InkDrawingAttributes() { Color = Colors.Black, Size = new Size(10, 10) };
+        private InkingSlatePageViewModel viewModel;
+        private InkDrawingAttributes _blackDrawingAttributes;
         private Boolean _isInitialized;
         public InkingSlatePage()
         {
             this.InitializeComponent();
             SlateCanvas.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen | Windows.UI.Core.CoreInputDeviceTypes.Touch;
-            //SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+            
             this.Loaded += InkingSlatePage_Loaded;
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
@@ -76,7 +77,7 @@ namespace InkingAlphabets
             if (!_isInitialized)
                 InitializeGrid();
             _isInitialized = true;
-            SlateCanvas.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected; ;
+            SlateCanvas.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected; 
             SlateCanvas.InkPresenter.StrokesErased += InkPresenter_StrokesErased;
 
             viewModel = (InkingSlatePageViewModel)this.DataContext;
@@ -87,6 +88,11 @@ namespace InkingAlphabets
                 viewModel.InkStream.Seek(0);
                 await SlateCanvas.InkPresenter.StrokeContainer.LoadAsync(viewModel.InkStream);
             }
+
+            var selectedPen =  SlateInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 
         private async void InkPresenter_StrokesErased(InkPresenter sender, InkStrokesErasedEventArgs args)
@@ -274,6 +280,20 @@ namespace InkingAlphabets
         private void ShareAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             DataTransferManager.ShowShareUI();
+        }
+
+        private void SlateInkPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var pn = e.PropertyName;
+            var selectedPen = ((InkPenSelectorControl)sender).SelectedPen;
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void SlateInkPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            PenColorAppBarButton.Flyout.Hide();
         }
     }
 }

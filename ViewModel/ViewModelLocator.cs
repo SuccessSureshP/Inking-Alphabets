@@ -38,7 +38,7 @@ namespace InkingAlphabets.ViewModel
             SimpleIoc.Default.Register<AddNewLanguagePageViewModel>();
             SimpleIoc.Default.Register<InkingSlatePageViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
-            SimpleIoc.Default.Register<InkingWordsViewModel>();
+            SimpleIoc.Default.Register<InkingWordsViewModel>();            
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
@@ -56,6 +56,7 @@ namespace InkingAlphabets.ViewModel
         public SettingsViewModel SettingsViewModelInstance => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 
         public InkingWordsViewModel InkingWordsViewModelInstance => ServiceLocator.Current.GetInstance<InkingWordsViewModel>();
+                
         public ShellViewModel ShellViewModelInstance => ServiceLocator.Current.GetInstance<ShellViewModel>();
     }
 }

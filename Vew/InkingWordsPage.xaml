@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InkingAlphabets.Vew"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:inkTools="using:Microsoft.Labs.InkToolbarControl" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
     DataContext="{Binding InkingWordsViewModelInstance,
                             Source={StaticResource Locator}}"
     mc:Ignorable="d">
@@ -27,7 +26,7 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
-                                RelativePanel.LeftOf="InkToolbar"
+                                VerticalAlignment="Top" RelativePanel.AlignRightWithPanel="True"
                                 x:Name="SizePanel">
                         <TextBlock Text="Size"
                                    VerticalAlignment="Center"
@@ -47,13 +46,13 @@
                                 Background="White"
                                 Margin="15,8,0,0" />
                     </StackPanel>                   
-                    <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
+                    <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"
                                          PenSize="15,15" 
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          VerticalAlignment="Top" RelativePanel.AlignRightWithPanel="True"
                                          ButtonForeground="White">
-                    </inkTools:InkToolbar>
+                    </inkTools:InkToolbar>-->
                 </RelativePanel>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
@@ -90,11 +89,13 @@
                 </Grid.ColumnDefinitions>
                 <RelativePanel Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                 <TextBlock Text="Write or copy paste a word here: " x:Name="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                <TextBox  FontSize="20" Text="APPLE" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
+                    <TextBox  FontSize="20" Text="అమూల్య" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
                 </RelativePanel>
                 <Button Content="Recognize English text" x:Name="RecognizeButton" Click="RecognizeButton_Click" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White"/>
             </Grid>
-            <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" x:Name="SampleTextblock" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Grid Grid.Row="1" Background="#E6E6E6">
+                <TextBlock Grid.Row="1" Text="{Binding ElementName=InputTextbox,Path=Text}" x:Name="SampleTextblock" FontSize="150" TextAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
             <Grid Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 BorderThickness="0,1,0,0"
                   Background="Black">

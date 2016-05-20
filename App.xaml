@@ -120,6 +120,7 @@
                 <Setter Property="FontSize" Value="15"/>
             </Style>
             <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <Converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
         </ResourceDictionary>
         <!--  Global View Model Locator  -->        
     </Application.Resources>

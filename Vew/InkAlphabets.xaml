@@ -4,7 +4,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:InkingAlphabets"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:inkTools="using:Microsoft.Labs.InkToolbarControl"
       DataContext="{Binding InkAlphabetsViewModelInstance,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
@@ -49,11 +48,11 @@
                                 Background="White"
                                 Margin="15,8,0,0"/>
                         </StackPanel>
-                        <inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  Margin="10,0,0,0" Grid.Column="2"
+                        <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  Margin="10,0,0,0" Grid.Column="2"
                                          PenColor="#0051D5"
                                          PenSize="25,25"                                         
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                         ButtonForeground="White"></inkTools:InkToolbar>
+                                         ButtonForeground="White"></inkTools:InkToolbar>-->
                     </Grid>
 
                 </CommandBar.Content>

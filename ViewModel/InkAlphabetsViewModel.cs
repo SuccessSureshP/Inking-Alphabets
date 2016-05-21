@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 
 namespace InkingAlphabets.ViewModel
@@ -21,7 +23,11 @@ namespace InkingAlphabets.ViewModel
         private Alphabet _currentAlphabet;
         private Language _selectedLanguage;
 
-        private ObservableCollection<Alphabet> _alphabets; 
+        private ObservableCollection<Alphabet> _alphabets;
+
+        private string _selectedPenColorName;
+        private Color _selectedPenColor;
+        IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
 
         public InkAlphabetsViewModel(
           IAlphabetsDataService alphabetsDataService,
@@ -30,7 +36,14 @@ namespace InkingAlphabets.ViewModel
         {
             _alphabetsDataService = alphabetsDataService;
             _languagesDataService = languagesDataService;
-            _navigationService = navigationService;           
+            _navigationService = navigationService;
+
+            if (_localSettings.Keys.Contains("InkingAlphabtsPenColor"))
+                SelectedPenColorName = _localSettings["InkingAlphabtsPenColor"].ToString();
+            else
+            {
+                _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName = "Blue";
+            }
         }
 
         public string WelcomeTitle
@@ -69,7 +82,31 @@ namespace InkingAlphabets.ViewModel
                 Set(ref _currentAlphabet, value);
             }
         }
+        public Color SelectedPenColor
+        {
+            get
+            {
+                return _selectedPenColor;
+            }
 
+            set
+            {
+                Set(ref _selectedPenColor, value);
+            }
+        }
+
+        public string SelectedPenColorName
+        {
+            get
+            {
+                return _selectedPenColorName;
+            }
+
+            set
+            {
+                Set(ref _selectedPenColorName, value);
+            }
+        }
         public async Task LoadPageData()
         {
             try
@@ -118,6 +155,11 @@ namespace InkingAlphabets.ViewModel
             }
 
             return deleteResult;
+        }
+
+        public void CacheInkingAplhabetsPageData()
+        {   
+            _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName;
         }
     }
 }

@@ -6,6 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       DataContext="{Binding InkAlphabetsViewModelInstance,
                             Source={StaticResource Locator}}"
+      xmlns:userControls="using:InkingAlphabets.UserControls"
       mc:Ignorable="d">
     <RelativePanel>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
@@ -57,7 +58,16 @@
 
                 </CommandBar.Content>
             <CommandBar.PrimaryCommands>
-                <!--<AppBarButton Foreground="White"
+                    <AppBarButton  Label="Color" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1">
+                        <Button.Flyout>
+                            <Flyout>
+                                <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="AlphabetsInkPenSelectorControl" 
+                                                                PropertyChanged="AlphabetsInkPenSelectorControl_PropertyChanged"  
+                                                                CloseClicked="AlphabetsInkPenSelectorControl_CloseClicked"/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </AppBarButton >
+                    <!--<AppBarButton Foreground="White"
                               Icon="Back"
                               Label="Previous"
                               x:Name="AppbarButtonMakeSmall"

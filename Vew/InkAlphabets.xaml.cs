@@ -1,5 +1,6 @@
 ﻿using InkingAlphabets.Common;
 using InkingAlphabets.Model;
+using InkingAlphabets.UserControls;
 using InkingAlphabets.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,11 @@ namespace InkingAlphabets
                     await msgDialog.ShowAsync();
                 }
             }
+
+            var selectedPen = AlphabetsInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
         private void InkAlphabets_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -266,6 +272,26 @@ namespace InkingAlphabets
                 UpdateAppBarNavButtons();
             }
         }
+
+        private void AlphabetsInkPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var pn = e.PropertyName;
+            var selectedPen = ((InkPenSelectorControl)sender).SelectedPen;
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void AlphabetsInkPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            PenColorAppBarButton.Flyout.Hide();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            viewModel.CacheInkingAplhabetsPageData();
+        }
+
     }
 
 }

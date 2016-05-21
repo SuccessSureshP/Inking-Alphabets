@@ -1,4 +1,5 @@
-﻿using InkingAlphabets.ViewModel;
+﻿using InkingAlphabets.UserControls;
+using InkingAlphabets.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,7 @@ namespace InkingAlphabets
         private InkingWordsViewModel viewModel;
         private Boolean _isInitialized;
         private readonly InkRecognizerContainer _inkRecognizerContainer;
+        private InkDrawingAttributes _blackDrawingAttributes;
         public InkingWordsPage()
         {
             this.InitializeComponent();
@@ -60,6 +62,10 @@ namespace InkingAlphabets
             if (App.Current.Resources.Keys.Contains("InkingWord"))
                 InputTextbox.Text = App.Current.Resources["InkingWord"].ToString();
 
+            var selectedPen = SlateInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 
         private async void InkPresenter_StrokesErased(InkPresenter sender, InkStrokesErasedEventArgs args)
@@ -177,6 +183,20 @@ namespace InkingAlphabets
             }
 
             await msgDialog.ShowAsync();
+        }
+
+        private void SlateInkPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var pn = e.PropertyName;
+            var selectedPen = ((InkPenSelectorControl)sender).SelectedPen;
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void SlateInkPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            PenColorAppBarButton.Flyout.Hide();
         }
     }
 }

@@ -83,7 +83,7 @@ namespace InkingAlphabets
 
             var selectedPen = AlphabetsInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
             viewModel.SelectedPenColor = selectedPen.Pencolor;
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
             InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
         private void InkAlphabets_Unloaded(object sender, RoutedEventArgs e)
@@ -275,10 +275,11 @@ namespace InkingAlphabets
 
         private void AlphabetsInkPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var pn = e.PropertyName;
-            var selectedPen = ((InkPenSelectorControl)sender).SelectedPen;
+            var inkPenSelectorControl = ((InkPenSelectorControl)sender);
+
+            var selectedPen = inkPenSelectorControl.SelectedPen;
             viewModel.SelectedPenColor = selectedPen.Pencolor;
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
             InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 

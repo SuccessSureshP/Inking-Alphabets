@@ -25,7 +25,8 @@ namespace InkingAlphabets.UserControls
     public sealed partial class InkPenSelectorControl : UserControl
     {
         private List<ColorClass> _pens;
-        private ColorClass _selectedPen;        
+        private ColorClass _selectedPen;
+        private int _selectedPenSize;
 
         public ColorClass SelectedPen
         {
@@ -38,6 +39,22 @@ namespace InkingAlphabets.UserControls
                 _selectedPen = value;
                 if(_selectedPen != null)
                     PenColor = _selectedPen.Name;             
+            }
+        }
+
+
+        
+
+        public int SelectedPenSize
+        {
+            get
+            {
+                return _selectedPenSize;
+            }
+            set
+            {
+                _selectedPenSize = value;
+                 PenSize = _selectedPenSize;
             }
         }
 
@@ -67,6 +84,20 @@ namespace InkingAlphabets.UserControls
             }
         }
 
+
+        public static readonly DependencyProperty PenSizeProperty = DependencyProperty.Register("PenSize", typeof(int), typeof(InkPenSelectorControl), null);
+        public int PenSize
+        {
+            get
+            {
+                return (int)GetValue(PenSizeProperty);
+            }
+            set
+            {
+                SetValueDP(PenSizeProperty, value);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         void SetValueDP(DependencyProperty property, object valu,[System.Runtime.CompilerServices.CallerMemberName] string p = null)
         {
@@ -93,6 +124,8 @@ namespace InkingAlphabets.UserControls
             Pens.Add(new ColorClass() { Pencolor = Colors.DarkGoldenrod, Name = "DarkGoldenrod" });
 
             (this.Content as FrameworkElement).DataContext = this;
+
+            
         }
 
         private void InkPenSelectorControl_Loaded(object sender, RoutedEventArgs e)
@@ -103,6 +136,9 @@ namespace InkingAlphabets.UserControls
                 SelectedPen = Pens.FirstOrDefault(p => p.Name.Equals(PenColor));
                 ColorsListView.SelectedItem = SelectedPen;
             }
+
+            PenSizeSlider.Value = PenSize;
+
         }
 
         private void PenSelectionCloseButton_Click(object sender, RoutedEventArgs e)

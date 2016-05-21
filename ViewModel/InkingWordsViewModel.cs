@@ -20,6 +20,7 @@ namespace InkingAlphabets.ViewModel
         private string _selectedPenColorName;
         private Color _selectedPenColor;
         IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
+        private int _penSize;
         public string PageTitle
         {
             get
@@ -69,6 +70,13 @@ namespace InkingAlphabets.ViewModel
             {
                 _localSettings["InkingWordsPenColor"] = SelectedPenColorName = "Green";
             }
+
+            if (_localSettings.Keys.Contains("InkingWordsPenSize"))
+                PenSize = int.Parse(_localSettings["InkingWordsPenSize"].ToString());
+            else
+            {
+                _localSettings["InkingWordsPenSize"] = PenSize = 10;
+            }
         }
 
         private IRandomAccessStream _inkStream;
@@ -84,6 +92,20 @@ namespace InkingAlphabets.ViewModel
                 Set(ref _inkStream, value);
             }
         }
+
+        public int PenSize
+        {
+            get
+            {
+                return _penSize;
+            }
+
+            set
+            {
+                Set(ref _penSize, value);
+            }
+        }
+
         public async Task UpdateSlateAsync(InkCanvas canvas)
         {
             _inkStream.Size = 0;
@@ -107,6 +129,7 @@ namespace InkingAlphabets.ViewModel
         {
             App.Current.Resources["CachedInkingWordsData"] = InkStream;
             _localSettings["InkingWordsPenColor"] = SelectedPenColorName;
+            _localSettings["InkingWordsPenSize"] = PenSize;
         }
     }
 }

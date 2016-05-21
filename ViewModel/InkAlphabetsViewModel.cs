@@ -22,6 +22,7 @@ namespace InkingAlphabets.ViewModel
         private string _welcomeTitle = string.Empty;
         private Alphabet _currentAlphabet;
         private Language _selectedLanguage;
+        private int _penSize;
 
         private ObservableCollection<Alphabet> _alphabets;
 
@@ -44,6 +45,15 @@ namespace InkingAlphabets.ViewModel
             {
                 _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName = "Blue";
             }
+
+
+            if (_localSettings.Keys.Contains("InkingAlphabtsPenSize"))
+                PenSize = int.Parse(_localSettings["InkingAlphabtsPenSize"].ToString());
+            else
+            {
+                _localSettings["InkingAlphabtsPenSize"] = PenSize= 10;
+            }
+
         }
 
         public string WelcomeTitle
@@ -107,6 +117,20 @@ namespace InkingAlphabets.ViewModel
                 Set(ref _selectedPenColorName, value);
             }
         }
+
+        public int PenSize
+        {
+            get
+            {
+                return _penSize;
+            }
+
+            set
+            {
+                Set(ref _penSize, value);
+            }
+        }
+
         public async Task LoadPageData()
         {
             try
@@ -160,6 +184,7 @@ namespace InkingAlphabets.ViewModel
         public void CacheInkingAplhabetsPageData()
         {   
             _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName;
+            _localSettings["InkingAlphabtsPenSize"] = PenSize;
         }
     }
 }

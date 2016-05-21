@@ -15,7 +15,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <GridView x:Name="ColorsListView" ItemsSource="{Binding Pens}" SelectedItem="{Binding SelectedPen, Mode=TwoWay}">
+        <GridView x:Name="ColorsListView" ItemsSource="{Binding Pens}" SelectedItem="{Binding SelectedPen, Mode=TwoWay}"
+                  HorizontalAlignment="Center">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid Margin="0" Orientation="Horizontal" MaximumRowsOrColumns="3"  />
@@ -28,7 +29,20 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <Button Content="Close"  Grid.Row="1" HorizontalAlignment="Right" FontSize="10" Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="PenSelectionCloseButton" Click="PenSelectionCloseButton_Click"
+        <Slider 
+            Grid.Row="1"
+            Width="120"
+                                Orientation="Horizontal"
+            HorizontalAlignment="Center"
+                                SnapsTo="Ticks"
+                                Minimum="1"
+                                Value="{Binding SelectedPenSize,Mode=TwoWay}"
+                                Maximum="100"
+                                TickPlacement="BottomRight"
+                                TickFrequency="5"
+                                IsDirectionReversed="False"
+                                Name="PenSizeSlider"/>
+        <Button Content="Close"  Grid.Row="2" HorizontalAlignment="Right" FontSize="10" Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="PenSelectionCloseButton" Click="PenSelectionCloseButton_Click"
                     Foreground="White"/>
     </Grid>
 </UserControl>

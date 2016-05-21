@@ -61,6 +61,7 @@
                     <Button.Flyout>
                         <Flyout>
                             <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
+                                                                PenSize="{Binding PenSize,Mode=TwoWay}"
                                                                 PropertyChanged="SlateInkPenSelectorControl_PropertyChanged"  
                                                                 CloseClicked="SlateInkPenSelectorControl_CloseClicked"/>
                         </Flyout>

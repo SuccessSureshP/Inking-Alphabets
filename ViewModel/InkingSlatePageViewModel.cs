@@ -21,6 +21,7 @@ namespace InkingAlphabets.ViewModel
         private string _selectedPenColorName;
         private Color _selectedPenColor;        
         IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
+        private int _penSize;
         public string PageTitle
         {
             get
@@ -73,6 +74,20 @@ namespace InkingAlphabets.ViewModel
                 Set(ref _inkStream, value);
             }
         }
+
+        public int PenSize
+        {
+            get
+            {
+                return _penSize;
+            }
+
+            set
+            {
+                _penSize = value;
+            }
+        }
+
         public async Task UpdateSlateAsync(InkCanvas canvas)
         {
             _inkStream.Size = 0;
@@ -96,7 +111,15 @@ namespace InkingAlphabets.ViewModel
             else
             {
                 _localSettings["InkingSlatePenColor"] = SelectedPenColorName = "Red";
-            }                    
+            }
+
+
+            if (_localSettings.Keys.Contains("InkingSlatePenSize"))
+                PenSize = int.Parse(_localSettings["InkingSlatePenSize"].ToString());
+            else
+            {
+                _localSettings["InkingSlatePenSize"] = PenSize = 10;
+            }
         }
 
         public void LoadCachedInkingSlateData()
@@ -110,6 +133,7 @@ namespace InkingAlphabets.ViewModel
             
             App.Current.Resources["CachedInkingSlateData"] =  InkStream;
             _localSettings["InkingSlatePenColor"] = SelectedPenColorName;
+            _localSettings["InkingSlatePenSize"] = PenSize;
         }    
     }
 }

@@ -90,8 +90,8 @@ namespace InkingAlphabets
             }
 
             var selectedPen =  SlateInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
-            viewModel.SelectedPenColor = selectedPen.Pencolor;
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            viewModel.SelectedPenColor = selectedPen.Pencolor;            
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
             SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 
@@ -298,7 +298,7 @@ namespace InkingAlphabets
             var pn = e.PropertyName;
             var selectedPen = ((InkPenSelectorControl)sender).SelectedPen;
             viewModel.SelectedPenColor = selectedPen.Pencolor;
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(10, 10) };
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
             SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 

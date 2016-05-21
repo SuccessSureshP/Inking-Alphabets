@@ -130,7 +130,17 @@ namespace InkingAlphabets
         {
             SlateCanvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Mouse | CoreInputDeviceTypes.Pen | CoreInputDeviceTypes.Touch;
         }
-      
+
+        private void AppbarButtonEraser_Checked(object sender, RoutedEventArgs e)
+        {
+            SlateCanvas.InkPresenter.InputProcessingConfiguration.Mode = InkInputProcessingMode.Erasing;
+        }
+
+        private void AppbarButtonEraser_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SlateCanvas.InkPresenter.InputProcessingConfiguration.Mode = InkInputProcessingMode.Inking;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //SystemNavigationManager.GetForCurrentView().BackRequested += Page_BackRequested;

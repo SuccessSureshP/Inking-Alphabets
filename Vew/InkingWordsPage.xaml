@@ -66,6 +66,12 @@
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton >
+                <AppBarToggleButton x:Name="AppbarButtonEraser"                                   
+                                    Checked="AppbarButtonEraser_Checked"
+                                    Unchecked="AppbarButtonEraser_Unchecked" 
+                                    Label="Eraser" ClickMode="Press" Icon="PostUpdate"
+                                    Foreground="White"
+                                   />
                 <AppBarButton x:Name="AppbarButtonClear"
                               Click="AppbarButtonClear_Click"
                               Foreground="White"

@@ -67,6 +67,12 @@
                             </Flyout>
                         </Button.Flyout>
                     </AppBarButton >
+                    <AppBarButton x:Name="AppbarButtonClear"
+                              Click="AppbarButtonClear_Click"
+                                  Foreground="White"
+                              Icon="Clear"
+                              Label="Clear" 
+                                  Margin="1"/>
                     <!--<AppBarButton Foreground="White"
                               Icon="Back"
                               Label="Previous"
@@ -96,12 +102,7 @@
                               Icon="Next"
                               Label="Go to End"
                               x:Name="GotoEndAppbarButton"
-                              Click="GotoEndButton_Click" />
-                <AppBarButton x:Name="AppbarButtonClear"
-                              Click="AppbarButtonClear_Click"
-                              Foreground="White"
-                              Icon="Clear"
-                              Label="Clear" />
+                              Click="GotoEndButton_Click" /> 
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Go to Start" x:Name="GotoStartSecondaryAppbarButton" Click="GotoStartButton_Click" Visibility="Collapsed"/>

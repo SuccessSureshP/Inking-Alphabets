@@ -58,23 +58,23 @@ namespace InkingAlphabets
             switch(key)
             {
                 case "InkingAlphabtsPenColor": defaultValue = "Blue";break;
-                case "InkingAlphabtsPenSize":  defaultValue = 10; break;
+                case "InkingAlphabtsPenSize":  defaultValue = 25; break;
 
-                case "InkingAlphabtsHighlighterColor": defaultValue = "Yellow"; break;
-                case "InkingAlphabtsHighlighterSize": defaultValue = 20; break;
+                case "InkingAlphabtsHighlighterColor": defaultValue = "Orange"; break;
+                case "InkingAlphabtsHighlighterSize": defaultValue = 35; break;
 
                 case "InkingSlatePenColor": defaultValue = "Red"; break;
                 case "InkingSlatePenSize": defaultValue = 10; break;
 
-                case "InkingSlateHighlighterColor": defaultValue = "Green"; break;
+                case "InkingSlateHighlighterColor": defaultValue = "Lime"; break;
                 case "InkingSlateHighlighterSize": defaultValue = 20; break;
 
 
                 case "InkingWordsPenColor": defaultValue = "Green"; break;
-                case "InkingWordsPenSize": defaultValue = 10; break;
+                case "InkingWordsPenSize": defaultValue = 20; break;
 
-                case "InkingWordsHighlighterColor": defaultValue = "Brown"; break;
-                case "InkingWordsHighlighterSize": defaultValue = 20; break;
+                case "InkingWordsHighlighterColor": defaultValue = "BlueViolet"; break;
+                case "InkingWordsHighlighterSize": defaultValue = 30; break;
             }
 
             return defaultValue;

@@ -57,7 +57,7 @@
                 </RelativePanel>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
-                <AppBarButton  Label="Color" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click">
+                <AppBarButton  Label="Pen" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="Edit" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click">
                     <Button.Flyout>
                         <Flyout>
                             <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
@@ -67,7 +67,7 @@
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton >
-                <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
+                <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="Highlight" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
                     <Button.Flyout>
                         <Flyout>
                             <userControls:HighlighterPenSelectorControl 

@@ -109,6 +109,9 @@ namespace InkingAlphabets.UserControls
             Pens.Add(new ColorClass() { Pencolor = Colors.DarkBlue, Name = "DarkBlue" });
             Pens.Add(new ColorClass() { Pencolor = Colors.DarkCyan, Name = "DarkCyan" });
             Pens.Add(new ColorClass() { Pencolor = Colors.DarkGoldenrod, Name = "DarkGoldenrod" });
+            Pens.Add(new ColorClass() { Pencolor = Colors.OrangeRed, Name = "OrangeRed" });
+            Pens.Add(new ColorClass() { Pencolor = Colors.RoyalBlue, Name = "RoyalBlue" });
+            Pens.Add(new ColorClass() { Pencolor = Colors.Tan, Name = "Tan" });
 
             (this.Content as FrameworkElement).DataContext = this;
 

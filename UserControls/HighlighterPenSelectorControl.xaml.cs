@@ -98,18 +98,18 @@ namespace InkingAlphabets.UserControls
         {
             this.InitializeComponent();
             this.Loaded += HighlighterPenSelectorControl_Loaded;
-
+                       
             HighlighterPens = new List<ColorClass>();
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Green, Name = "Green" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Red, Name = "Red" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Black, Name = "Black" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Blue, Name = "Blue" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Brown, Name = "Brown" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Chocolate, Name = "Chocolate" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.DarkBlue, Name = "DarkBlue" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.DarkCyan, Name = "DarkCyan" });
-            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.DarkGoldenrod, Name = "DarkGoldenrod" });
             HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Yellow, Name = "Yellow" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Orange, Name = "Orange" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.BlueViolet, Name = "BlueViolet" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.LightSlateGray, Name = "LightSlateGray" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.LightPink, Name = "LightPink" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.LightSteelBlue, Name = "LightSteelBlue" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Purple, Name = "Purple" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Lime, Name = "Lime" });
+            HighlighterPens.Add(new ColorClass() { Pencolor = Colors.Magenta, Name = "Magenta" });            
+            
 
             (this.Content as FrameworkElement).DataContext = this;
 

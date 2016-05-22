@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
-using InkingAlphabets.Common;
 using InkingAlphabets.Model;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,11 @@ namespace InkingAlphabets.ViewModel
         private Color _selectedPenColor;        
         IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
         private int _penSize;
+
+        private string _selectedHighlighterColorName;
+        private Color _selectedHighlighterColor;
+        private int _highlighterSize;
+
         public string PageTitle
         {
             get
@@ -88,6 +92,45 @@ namespace InkingAlphabets.ViewModel
             }
         }
 
+        public Color SelectedHighlighterColor
+        {
+            get
+            {
+                return _selectedHighlighterColor;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColor, value);
+            }
+        }
+
+        public string SelectedHighlighterColorName
+        {
+            get
+            {
+                return _selectedHighlighterColorName;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColorName, value);
+            }
+        }
+
+        public int HighlighterSize
+        {
+            get
+            {
+                return _highlighterSize;
+            }
+
+            set
+            {
+                Set(ref _highlighterSize, value);
+            }
+        }
+
         public async Task UpdateSlateAsync(InkCanvas canvas)
         {
             _inkStream.Size = 0;
@@ -106,20 +149,12 @@ namespace InkingAlphabets.ViewModel
             PageTitle = "Inking Slate";
             InkStream = new InMemoryRandomAccessStream();
 
-            if (_localSettings.Keys.Contains("InkingSlatePenColor"))
-                SelectedPenColorName = _localSettings["InkingSlatePenColor"].ToString();
-            else
-            {
-                _localSettings["InkingSlatePenColor"] = SelectedPenColorName = "Red";
-            }
+            SelectedPenColorName = Common.GetLocalSettingValue("InkingSlatePenColor").ToString();
+            PenSize = int.Parse(Common.GetLocalSettingValue("InkingSlatePenSize").ToString());
 
+            SelectedHighlighterColorName = Common.GetLocalSettingValue("InkingSlateHighlighterColor").ToString();
+            HighlighterSize = int.Parse(Common.GetLocalSettingValue("InkingSlateHighlighterSize").ToString());
 
-            if (_localSettings.Keys.Contains("InkingSlatePenSize"))
-                PenSize = int.Parse(_localSettings["InkingSlatePenSize"].ToString());
-            else
-            {
-                _localSettings["InkingSlatePenSize"] = PenSize = 10;
-            }
         }
 
         public void LoadCachedInkingSlateData()
@@ -134,6 +169,9 @@ namespace InkingAlphabets.ViewModel
             App.Current.Resources["CachedInkingSlateData"] =  InkStream;
             _localSettings["InkingSlatePenColor"] = SelectedPenColorName;
             _localSettings["InkingSlatePenSize"] = PenSize;
+
+            _localSettings["InkingSlateHighlighterColor"] = SelectedHighlighterColorName;
+            _localSettings["InkingSlateHighlighterSize"] = HighlighterSize;
         }    
     }
 }

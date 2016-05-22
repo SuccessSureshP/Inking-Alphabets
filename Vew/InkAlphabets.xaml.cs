@@ -1,9 +1,9 @@
-﻿using InkingAlphabets.Common;
-using InkingAlphabets.Model;
+﻿using InkingAlphabets.Model;
 using InkingAlphabets.UserControls;
 using InkingAlphabets.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -81,10 +81,12 @@ namespace InkingAlphabets
                 }
             }
 
-            var selectedPen = AlphabetsInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
-            viewModel.SelectedPenColor = selectedPen.Pencolor;
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
-            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+            ResetToInkPen();
+
+            var selectedHighlighter = AlphabetsHighliterPenSelectorControl.HighlighterPens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedHighlighterColorName));
+            viewModel.SelectedHighlighterColor = selectedHighlighter.Pencolor;
+
+            
         }
         private void InkAlphabets_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -283,6 +285,20 @@ namespace InkingAlphabets
             InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
         }
 
+        private void PenColorAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetToInkPen();
+        }
+
+        private void ResetToInkPen()
+        {
+            var selectedPen = AlphabetsInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
+            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
         private void AlphabetsInkPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             PenColorAppBarButton.Flyout.Hide();
@@ -293,6 +309,30 @@ namespace InkingAlphabets
             viewModel.CacheInkingAplhabetsPageData();
         }
 
+        private void AlphabetsHighliterPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var highlighterPenSelectorControl = ((HighlighterPenSelectorControl)sender);
+
+            var selectedHighlighterPen = highlighterPenSelectorControl.SelectedHighlighterPen;
+            viewModel.SelectedHighlighterColor = selectedHighlighterPen.Pencolor;
+
+            _blackDrawingAttributes = new InkDrawingAttributes() {  DrawAsHighlighter=true, Color = selectedHighlighterPen.Pencolor, Size = new Size(viewModel.HighlighterSize, viewModel.HighlighterSize) };
+            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void AlphabetsHighliterPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            HighliterAppBarButton.Flyout.Hide();
+        }
+
+        private void HighliterAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedHighlighter = AlphabetsHighliterPenSelectorControl.HighlighterPens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedHighlighterColorName));
+            viewModel.SelectedHighlighterColor = selectedHighlighter.Pencolor;
+
+            _blackDrawingAttributes = new InkDrawingAttributes() { DrawAsHighlighter = true, Color = selectedHighlighter.Pencolor, Size = new Size(viewModel.HighlighterSize, viewModel.HighlighterSize) };
+            InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
     }
 
 }

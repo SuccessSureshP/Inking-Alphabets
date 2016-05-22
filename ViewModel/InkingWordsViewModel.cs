@@ -21,6 +21,11 @@ namespace InkingAlphabets.ViewModel
         private Color _selectedPenColor;
         IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
         private int _penSize;
+
+
+        private string _selectedHighlighterColorName;
+        private Color _selectedHighlighterColor;
+        private int _highlighterSize;
         public string PageTitle
         {
             get
@@ -64,19 +69,12 @@ namespace InkingAlphabets.ViewModel
         {
             PageTitle = "Inking Words";
             InkStream = new InMemoryRandomAccessStream();
-            if (_localSettings.Keys.Contains("InkingWordsPenColor"))
-                SelectedPenColorName = _localSettings["InkingWordsPenColor"].ToString();
-            else
-            {
-                _localSettings["InkingWordsPenColor"] = SelectedPenColorName = "Green";
-            }
 
-            if (_localSettings.Keys.Contains("InkingWordsPenSize"))
-                PenSize = int.Parse(_localSettings["InkingWordsPenSize"].ToString());
-            else
-            {
-                _localSettings["InkingWordsPenSize"] = PenSize = 10;
-            }
+            SelectedPenColorName = Common.GetLocalSettingValue("InkingWordsPenColor").ToString();
+            PenSize = int.Parse(Common.GetLocalSettingValue("InkingWordsPenSize").ToString());
+
+            SelectedHighlighterColorName = Common.GetLocalSettingValue("InkingWordsHighlighterColor").ToString();
+            HighlighterSize = int.Parse(Common.GetLocalSettingValue("InkingWordsHighlighterSize").ToString());
         }
 
         private IRandomAccessStream _inkStream;
@@ -106,6 +104,45 @@ namespace InkingAlphabets.ViewModel
             }
         }
 
+        public Color SelectedHighlighterColor
+        {
+            get
+            {
+                return _selectedHighlighterColor;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColor, value);
+            }
+        }
+
+        public string SelectedHighlighterColorName
+        {
+            get
+            {
+                return _selectedHighlighterColorName;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColorName, value);
+            }
+        }
+
+        public int HighlighterSize
+        {
+            get
+            {
+                return _highlighterSize;
+            }
+
+            set
+            {
+                Set(ref _highlighterSize, value);
+            }
+        }
+
         public async Task UpdateSlateAsync(InkCanvas canvas)
         {
             _inkStream.Size = 0;
@@ -130,6 +167,10 @@ namespace InkingAlphabets.ViewModel
             App.Current.Resources["CachedInkingWordsData"] = InkStream;
             _localSettings["InkingWordsPenColor"] = SelectedPenColorName;
             _localSettings["InkingWordsPenSize"] = PenSize;
+
+
+            _localSettings["InkingWordHighlighterColor"] = SelectedHighlighterColorName;
+            _localSettings["InkingWordHighlighterSize"] = HighlighterSize;
         }
     }
 }

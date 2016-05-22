@@ -110,6 +110,9 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="UserControls\HighlighterPenSelectorControl.xaml.cs">
+      <DependentUpon>HighlighterPenSelectorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\InkPenSelectorControl.xaml.cs">
       <DependentUpon>InkPenSelectorControl.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="UserControls\HighlighterPenSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\InkPenSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

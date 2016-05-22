@@ -34,13 +34,24 @@
                 </Grid>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
-                <AppBarButton  Label="Color" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1">
+                <AppBarButton  Label="Color" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click">
                     <Button.Flyout>
                         <Flyout>
                             <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
                                                                 PenSize="{Binding PenSize,Mode=TwoWay}"
                                                                 PropertyChanged="SlateInkPenSelectorControl_PropertyChanged"  
                                                                 CloseClicked="SlateInkPenSelectorControl_CloseClicked"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </AppBarButton >
+                <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="FontColor" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControls:HighlighterPenSelectorControl 
+                                                                HighlighterPenColor="{Binding SelectedHighlighterColorName,Mode=TwoWay}"   x:Name="SlateHighliterPenSelectorControl" 
+                                                                HighlighterPenSize="{Binding HighlighterSize,Mode=TwoWay}"
+                                                                PropertyChanged="SlateHighliterPenSelectorControl_PropertyChanged"  
+                                                                CloseClicked="SlateHighliterPenSelectorControl_CloseClicked"/>
                         </Flyout>
                     </Button.Flyout>
                 </AppBarButton >

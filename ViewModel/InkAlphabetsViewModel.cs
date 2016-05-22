@@ -22,12 +22,15 @@ namespace InkingAlphabets.ViewModel
         private string _welcomeTitle = string.Empty;
         private Alphabet _currentAlphabet;
         private Language _selectedLanguage;
-        private int _penSize;
+        private int _penSize;        
 
         private ObservableCollection<Alphabet> _alphabets;
 
         private string _selectedPenColorName;
         private Color _selectedPenColor;
+        private string _selectedHighlighterColorName;
+        private Color _selectedHighlighterColor;
+        private int _highlighterSize;
         IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
 
         public InkAlphabetsViewModel(
@@ -39,20 +42,12 @@ namespace InkingAlphabets.ViewModel
             _languagesDataService = languagesDataService;
             _navigationService = navigationService;
 
-            if (_localSettings.Keys.Contains("InkingAlphabtsPenColor"))
-                SelectedPenColorName = _localSettings["InkingAlphabtsPenColor"].ToString();
-            else
-            {
-                _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName = "Blue";
-            }
+            SelectedPenColorName = Common.GetLocalSettingValue("InkingAlphabtsPenColor").ToString();
+            PenSize = int.Parse(Common.GetLocalSettingValue("InkingAlphabtsPenSize").ToString());
 
+            SelectedHighlighterColorName = Common.GetLocalSettingValue("InkingAlphabtsHighlighterColor").ToString();
+            HighlighterSize = int.Parse(Common.GetLocalSettingValue("InkingAlphabtsHighlighterSize").ToString());
 
-            if (_localSettings.Keys.Contains("InkingAlphabtsPenSize"))
-                PenSize = int.Parse(_localSettings["InkingAlphabtsPenSize"].ToString());
-            else
-            {
-                _localSettings["InkingAlphabtsPenSize"] = PenSize= 10;
-            }
 
         }
 
@@ -131,6 +126,46 @@ namespace InkingAlphabets.ViewModel
             }
         }
 
+
+        public Color SelectedHighlighterColor
+        {
+            get
+            {
+                return _selectedHighlighterColor;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColor, value);
+            }
+        }
+
+        public string SelectedHighlighterColorName
+        {
+            get
+            {
+                return _selectedHighlighterColorName;
+            }
+
+            set
+            {
+                Set(ref _selectedHighlighterColorName, value);
+            }
+        }
+
+        public int HighlighterSize
+        {
+            get
+            {
+                return _highlighterSize;
+            }
+
+            set
+            {
+                Set(ref _highlighterSize, value);
+            }
+        }
+
         public async Task LoadPageData()
         {
             try
@@ -185,6 +220,9 @@ namespace InkingAlphabets.ViewModel
         {   
             _localSettings["InkingAlphabtsPenColor"] = SelectedPenColorName;
             _localSettings["InkingAlphabtsPenSize"] = PenSize;
+
+            _localSettings["InkingAlphabtsHighlighterColor"] = SelectedHighlighterColorName;
+            _localSettings["InkingAlphabtsHighlighterSize"] = HighlighterSize;
         }
     }
 }

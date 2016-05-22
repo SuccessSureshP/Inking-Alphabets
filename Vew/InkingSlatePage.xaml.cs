@@ -89,10 +89,10 @@ namespace InkingAlphabets
                 await SlateCanvas.InkPresenter.StrokeContainer.LoadAsync(viewModel.InkStream);
             }
 
-            var selectedPen =  SlateInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
-            viewModel.SelectedPenColor = selectedPen.Pencolor;            
-            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
-            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+            ResetToInkPen();
+
+            var selectedHighlighter = SlateHighliterPenSelectorControl.HighlighterPens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedHighlighterColorName));
+            viewModel.SelectedHighlighterColor = selectedHighlighter.Pencolor;
         }
 
         private async void InkPresenter_StrokesErased(InkPresenter sender, InkStrokesErasedEventArgs args)
@@ -305,6 +305,49 @@ namespace InkingAlphabets
         private void SlateInkPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             PenColorAppBarButton.Flyout.Hide();
+        }
+
+        private void SlateHighliterPenSelectorControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var highlighterPenSelectorControl = ((HighlighterPenSelectorControl)sender);
+
+            var selectedHighlighterPen = highlighterPenSelectorControl.SelectedHighlighterPen;
+            viewModel.SelectedHighlighterColor = selectedHighlighterPen.Pencolor;
+
+            _blackDrawingAttributes = new InkDrawingAttributes() { DrawAsHighlighter = true, Color = selectedHighlighterPen.Pencolor, Size = new Size(viewModel.HighlighterSize, viewModel.HighlighterSize) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void SlateHighliterPenSelectorControl_CloseClicked(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            HighliterAppBarButton.Flyout.Hide();
+        }
+
+        private void HighliterAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppbarButtonEraser.IsChecked != null && (bool)AppbarButtonEraser.IsChecked)
+                AppbarButtonEraser.IsChecked = false;
+
+            var selectedHighlighter =  SlateHighliterPenSelectorControl.HighlighterPens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedHighlighterColorName));
+            viewModel.SelectedHighlighterColor = selectedHighlighter.Pencolor;
+
+            _blackDrawingAttributes = new InkDrawingAttributes() { DrawAsHighlighter = true, Color = selectedHighlighter.Pencolor, Size = new Size(viewModel.HighlighterSize, viewModel.HighlighterSize) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void ResetToInkPen()
+        {
+            var selectedPen = SlateInkPenSelectorControl.Pens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedPenColorName));
+            viewModel.SelectedPenColor = selectedPen.Pencolor;
+            _blackDrawingAttributes = new InkDrawingAttributes() { Color = selectedPen.Pencolor, Size = new Size(viewModel.PenSize, viewModel.PenSize) };
+            SlateCanvas.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
+        }
+
+        private void PenColorAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppbarButtonEraser.IsChecked != null && (bool)AppbarButtonEraser.IsChecked)
+                AppbarButtonEraser.IsChecked = false;
+            ResetToInkPen();
         }
     }
 }

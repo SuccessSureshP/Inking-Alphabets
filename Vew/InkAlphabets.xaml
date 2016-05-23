@@ -4,87 +4,108 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:InkingAlphabets"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:userControls="using:InkingAlphabets.UserControls"
       DataContext="{Binding InkAlphabetsViewModelInstance,
                             Source={StaticResource Locator}}"
-      xmlns:userControls="using:InkingAlphabets.UserControls"
       mc:Ignorable="d">
     <RelativePanel>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    Foreground="White">
-            <CommandBar.Content>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              RelativePanel.AlignLeftWithPanel="True"
+              RelativePanel.AlignRightWithPanel="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
+                <CommandBar.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
-                               Text="{Binding WelcomeTitle}" x:Name="TitlePanel"
-                                   Width="1000"/>
-                        <StackPanel Grid.Column="1"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Right"                                
-                                x:Name="SizePanel">
-                            <TextBlock Text="Size"
-                                   VerticalAlignment="Center"
-                                   Style="{StaticResource AppcontentTextBlockStyle}"></TextBlock>
-                            <Slider Width="150"
-                                Orientation="Horizontal"
-                                SnapsTo="Ticks"
-                                Minimum="100"
-                                Value="400"
-                                Maximum="1000"
-                                TickPlacement="BottomRight"
-                                TickFrequency="25"
-                                IsDirectionReversed="False"
-                                Name="FontSlider"
-                                ValueChanged="FontSlider_ValueChanged"
-                                Foreground="White"
-                                Background="White"
-                                Margin="15,8,0,0"/>
+                        <TextBlock x:Name="TitlePanel"
+                                   Width="1000"
+                                   Style="{StaticResource AppTitleTextBlockStyle}"
+                                   Text="{Binding WelcomeTitle}" />
+                        <StackPanel x:Name="SizePanel"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center"
+                                       Style="{StaticResource AppcontentTextBlockStyle}"
+                                       Text="Size" />
+                            <Slider Name="FontSlider"
+                                    Width="150"
+                                    Margin="15,8,0,0"
+                                    Background="White"
+                                    Foreground="White"
+                                    IsDirectionReversed="False"
+                                    Maximum="1000"
+                                    Minimum="100"
+                                    Orientation="Horizontal"
+                                    SnapsTo="Ticks"
+                                    TickFrequency="25"
+                                    TickPlacement="BottomRight"
+                                    ValueChanged="FontSlider_ValueChanged"
+                                    Value="400" />
                         </StackPanel>
                         <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind InkCanvas1}"  Margin="10,0,0,0" Grid.Column="2"
                                          PenColor="#0051D5"
-                                         PenSize="25,25"                                         
+                                         PenSize="25,25"
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          ButtonForeground="White"></inkTools:InkToolbar>-->
                     </Grid>
 
                 </CommandBar.Content>
-            <CommandBar.PrimaryCommands>
-                    <AppBarButton  Label="Pen" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Icon="Edit" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton x:Name="PenColorAppBarButton"
+                                  Margin="1"
+                                  Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"
+                                  Click="PenColorAppBarButton_Click"
+                                  Foreground="{Binding SelectedPenColor,
+                                                       Converter={StaticResource ColorToBrushConverter}}"
+                                  Icon="Edit"
+                                  Label="Pen">
                         <Button.Flyout>
                             <Flyout>
-                                <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="AlphabetsInkPenSelectorControl" 
-                                                                    PenSize="{Binding PenSize,Mode=TwoWay}"
-                                                                PropertyChanged="AlphabetsInkPenSelectorControl_PropertyChanged"  
-                                                                CloseClicked="AlphabetsInkPenSelectorControl_CloseClicked"/>
+                                <userControls:InkPenSelectorControl x:Name="AlphabetsInkPenSelectorControl"
+                                                                    CloseClicked="AlphabetsInkPenSelectorControl_CloseClicked"
+                                                                    PenColor="{Binding SelectedPenColorName,
+                                                                                       Mode=TwoWay}"
+                                                                    PenSize="{Binding PenSize,
+                                                                                      Mode=TwoWay}"
+                                                                    PropertyChanged="AlphabetsInkPenSelectorControl_PropertyChanged" />
                             </Flyout>
                         </Button.Flyout>
-                    </AppBarButton >
-                    <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="Highlight" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
+                    </AppBarButton>
+                    <AppBarButton x:Name="HighliterAppBarButton"
+                                  Margin="1"
+                                  Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"
+                                  Click="HighliterAppBarButton_Click"
+                                  Foreground="{Binding SelectedHighlighterColor,
+                                                       Converter={StaticResource ColorToBrushConverter}}"
+                                  Icon="Highlight"
+                                  Label="Highliter">
                         <Button.Flyout>
                             <Flyout>
-                                <userControls:HighlighterPenSelectorControl 
-                                                                HighlighterPenColor="{Binding SelectedHighlighterColorName,Mode=TwoWay}"   x:Name="AlphabetsHighliterPenSelectorControl" 
-                                                                HighlighterPenSize="{Binding HighlighterSize,Mode=TwoWay}"
-                                                                PropertyChanged="AlphabetsHighliterPenSelectorControl_PropertyChanged"  
-                                                                CloseClicked="AlphabetsHighliterPenSelectorControl_CloseClicked"/>
+                                <userControls:HighlighterPenSelectorControl x:Name="AlphabetsHighliterPenSelectorControl"
+                                                                            CloseClicked="AlphabetsHighliterPenSelectorControl_CloseClicked"
+                                                                            HighlighterPenColor="{Binding SelectedHighlighterColorName,
+                                                                                                          Mode=TwoWay}"
+                                                                            HighlighterPenSize="{Binding HighlighterSize,
+                                                                                                         Mode=TwoWay}"
+                                                                            PropertyChanged="AlphabetsHighliterPenSelectorControl_PropertyChanged" />
                             </Flyout>
                         </Button.Flyout>
-                    </AppBarButton >
+                    </AppBarButton>
                     <AppBarButton x:Name="AppbarButtonClear"
-                              Click="AppbarButtonClear_Click"
+                                  Margin="1"
+                                  Click="AppbarButtonClear_Click"
                                   Foreground="White"
-                              Icon="Clear"
-                              Label="Clear" 
-                                  Margin="1"/>
+                                  Icon="Clear"
+                                  Label="Clear" />
                     <!--<AppBarButton Foreground="White"
                               Icon="Back"
                               Label="Previous"
@@ -95,114 +116,129 @@
                               Label="Next"
                               x:Name="AppbarButtonMakeBig"
                               Click="AppbarButtonMakeBig_Click" />-->
-                <AppBarButton Foreground="White"
-                              Icon="Previous"
-                              Label="Go to Start"
-                              x:Name="GotoStartAppbarButton"
-                              Click="GotoStartButton_Click"/>
-                <AppBarButton Foreground="White"
-                              Icon="Back"
-                              Label="Previous"
-                              x:Name="AppbarButtonPrevious"
-                              Click="AppbarButtonPrevious_Click" />
-                <AppBarButton Foreground="White"
-                              Icon="Forward"
-                              Label="Next"
-                              x:Name="AppbarButtonNext"
-                              Click="AppbarButtonNext_Click" />
-                <AppBarButton Foreground="White"
-                              Icon="Next"
-                              Label="Go to End"
-                              x:Name="GotoEndAppbarButton"
-                              Click="GotoEndButton_Click" /> 
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Go to Start" x:Name="GotoStartSecondaryAppbarButton" Click="GotoStartButton_Click" Visibility="Collapsed"/>
-                <AppBarButton Label="Go to End" x:Name="GotoEndSecondaryAppbarButton" Click="GotoEndButton_Click"  Visibility="Collapsed"/>
-                <AppBarButton Icon="Delete" Label="Delete Language" x:Name="DeleteLanguageButton" Click="DeleteLanguageButton_Click" />
-                <!--<AppBarButton Label="Option 2" />
+                    <AppBarButton x:Name="GotoStartAppbarButton"
+                                  Click="GotoStartButton_Click"
+                                  Foreground="White"
+                                  Icon="Previous"
+                                  Label="Go to Start" />
+                    <AppBarButton x:Name="AppbarButtonPrevious"
+                                  Click="AppbarButtonPrevious_Click"
+                                  Foreground="White"
+                                  Icon="Back"
+                                  Label="Previous" />
+                    <AppBarButton x:Name="AppbarButtonNext"
+                                  Click="AppbarButtonNext_Click"
+                                  Foreground="White"
+                                  Icon="Forward"
+                                  Label="Next" />
+                    <AppBarButton x:Name="GotoEndAppbarButton"
+                                  Click="GotoEndButton_Click"
+                                  Foreground="White"
+                                  Icon="Next"
+                                  Label="Go to End" />
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:Name="GotoStartSecondaryAppbarButton"
+                                  Click="GotoStartButton_Click"
+                                  Label="Go to Start"
+                                  Visibility="Collapsed" />
+                    <AppBarButton x:Name="GotoEndSecondaryAppbarButton"
+                                  Click="GotoEndButton_Click"
+                                  Label="Go to End"
+                                  Visibility="Collapsed" />
+                    <AppBarButton x:Name="DeleteLanguageButton"
+                                  Click="DeleteLanguageButton_Click"
+                                  Icon="Delete"
+                                  Label="Delete Language" />
+                    <!--<AppBarButton Label="Option 2" />
                 <AppBarSeparator />
                 <AppBarButton Label="Show pane"
                               Command="{x:Bind ViewModel.ShowPaneCommand}" />-->
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <FlipView x:Name="AlphabetslistView"
-                      ItemsSource="{Binding Alphabets}"
-                      SelectedItem="{Binding CurrentAlphabet,
-                                             Mode=TwoWay}"
-                      SelectionChanged="AlphabetslistView_SelectionChanged">
-                <FlipView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </FlipView.ItemsPanel>
-                <FlipView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                BorderThickness="1,1,1,1">
-                            <TextBlock Name="AlphabeetTextbox"
-                                       Margin="0"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="400"
-                                       FontStretch="Expanded"
-                                       Padding="0"
-                                       Text="{Binding AlphabetCharacter}"
-                                       TextAlignment="DetectFromContent" />
-                        </Border>
-                    </DataTemplate>
-                </FlipView.ItemTemplate>
-            </FlipView>
-            <Grid Grid.Column="1"
-                  Background="White">
-                <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                BorderThickness="0,1,1,1">
-                    <InkCanvas x:Name="InkCanvas1" />
-                </Border>
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <FlipView x:Name="AlphabetslistView"
+                          ItemsSource="{Binding Alphabets}"
+                          SelectedItem="{Binding CurrentAlphabet,
+                                                 Mode=TwoWay}"
+                          SelectionChanged="AlphabetslistView_SelectionChanged">
+                    <FlipView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </FlipView.ItemsPanel>
+                    <FlipView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1,1,1,1">
+                                <TextBlock Name="AlphabeetTextbox"
+                                           Margin="0"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="400"
+                                           FontStretch="Expanded"
+                                           Padding="0"
+                                           Text="{Binding AlphabetCharacter}"
+                                           TextAlignment="DetectFromContent" />
+                            </Border>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+                <ProgressRing x:Name="DataLoadingProgressRingControl"
+                              Grid.ColumnSpan="2"
+                              Width="200"
+                              Height="200"
+                              Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                              IsActive="False" />
+                <Grid Grid.Column="1" Background="White">
+                    <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0,1,1,1">
+                        <InkCanvas x:Name="InkCanvas1" />
+                    </Border>
+                </Grid>
             </Grid>
-            <ProgressRing Height="200" Width="200" Grid.ColumnSpan="2" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="DataLoadingProgressRingControl"  IsActive="False"/>
         </Grid>
-    </Grid>
 
-    <!-- Responsive VisualStates -->
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState>
-                <!-- VisualState to be triggered when window width is >=720 effective pixels -->
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="1000" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <!-- Widest possible layout moves some elements around to optimize for more available width 
-                        and keeps SplitView pane always showing inline -->
-                    <!--<Setter Target="TitlePanel.Width"
+        <!--  Responsive VisualStates  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <!--  VisualState to be triggered when window width is >=720 effective pixels  -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--
+                            Widest possible layout moves some elements around to optimize for more available width
+                            and keeps SplitView pane always showing inline
+                        -->
+                        <!--<Setter Target="TitlePanel.Width"
                             Value="700" />-->
-                        <Setter Target="FontSlider.Width" Value="120"/>
+                        <Setter Target="FontSlider.Width" Value="120" />
                     </VisualState.Setters>
-            </VisualState>
-            <VisualState>
-                <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
-                <VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="600" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <!-- For intermediate window widths as well as most phones on landscape orientation, 
-                        this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
-                    <!--<Setter Target="TitlePanel.Text"
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--
+                            For intermediate window widths as well as most phones on landscape orientation,
+                            this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout
+                        -->
+                        <!--<Setter Target="TitlePanel.Text"
                             Value="Changed" />-->
                         <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
                         <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
                         <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
-                        <Setter Target="FontSlider.Width" Value="60"/>
+                        <Setter Target="FontSlider.Width" Value="60" />
 
                     </VisualState.Setters>
-            </VisualState>
+                </VisualState>
                 <VisualState>
                     <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
                     <VisualState.StateTriggers>
@@ -210,18 +246,17 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TitlePanel.Width" Value="50" />
-                        <Setter Target="FontSlider.Width" Value="60"/>
+                        <Setter Target="FontSlider.Width" Value="60" />
                         <Setter Target="GotoStartSecondaryAppbarButton.Visibility" Value="Visible" />
                         <Setter Target="GotoEndSecondaryAppbarButton.Visibility" Value="Visible" />
                         <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="AppbarButtonNext.Visibility" Value="Collapsed" />
-                        <Setter Target="AppbarButtonPrevious.Visibility" Value="Collapsed" />                        
+                        <Setter Target="AppbarButtonPrevious.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
+        </VisualStateManager.VisualStateGroups>
     </RelativePanel>
 </Page>
 
-    

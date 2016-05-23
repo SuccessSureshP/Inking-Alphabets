@@ -96,16 +96,18 @@
 
                         <!--  top menu  -->
                         <ListView Grid.Row="1"
+                                  Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                                   ItemsSource="{x:Bind ViewModel.TopItems}"
                                   SelectedItem="{x:Bind ViewModel.SelectedTopItem, Mode=TwoWay, Converter={StaticResource NavigationItemToObjectConverter}}"
-                                  Style="{StaticResource MenuNavigationListViewStyle}" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" />
+                                  Style="{StaticResource MenuNavigationListViewStyle}" />
 
 
                         <!--  bottom menu  -->
                         <ListView Grid.Row="2"
+                                  Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                                   ItemsSource="{x:Bind ViewModel.BottomItems}"
                                   SelectedItem="{x:Bind ViewModel.SelectedBottomItem, Mode=TwoWay, Converter={StaticResource NavigationItemToObjectConverter}}"
-                                  Style="{StaticResource MenuNavigationListViewStyle}" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"/>
+                                  Style="{StaticResource MenuNavigationListViewStyle}" />
                     </Grid>
                 </Border>
             </SplitView.Pane>

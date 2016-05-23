@@ -1,11 +1,11 @@
 ﻿<Application x:Class="InkingAlphabets.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="using:InkingAlphabets.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ignore="http://www.galasoft.ch/ignore"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:InkingAlphabets.ViewModel"
-              xmlns:Converters="using:InkingAlphabets.Converters"
              RequestedTheme="Light"
              mc:Ignorable="d ignore">
 
@@ -110,19 +110,19 @@
                    TargetType="TextBlock">
                 <Setter Property="Margin" Value="12,6,0,6" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontSize" Value="18" />
             </Style>
             <Style x:Key="AppcontentTextBlockStyle"
                    BasedOn="{StaticResource BaseTextBlockStyle}"
                    TargetType="TextBlock">
                 <Setter Property="Margin" Value="12,6,0,6" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontSize" Value="15" />
             </Style>
             <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <Converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
         </ResourceDictionary>
-        <!--  Global View Model Locator  -->        
+        <!--  Global View Model Locator  -->
     </Application.Resources>
 
 </Application>

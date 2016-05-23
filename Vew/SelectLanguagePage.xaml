@@ -27,26 +27,36 @@
                               Label="Add New" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
-        <Grid Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
-                           BorderThickness="1,1,1,1">
+        <Grid Grid.Row="1"
+              BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+              BorderThickness="1,1,1,1">
             <ListView x:Name="LanguagesGridView"
+                      Margin="5"
                       IsHoldingEnabled="True"
                       IsItemClickEnabled="True"
                       IsMultiSelectCheckBoxEnabled="True"
                       ItemsSource="{Binding Languages}"
                       SelectedItem="{Binding SelectedLanguage,
-                                             Mode=TwoWay}"
-                      Margin="5">
+                                             Mode=TwoWay}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Horizontal" ItemHeight="80"  GroupPadding="0" />
+                        <ItemsWrapGrid GroupPadding="0"
+                                       ItemHeight="80"
+                                       Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
-                    <DataTemplate>                        
-                        <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" Height="50" Width="150" Margin="5">
-                        <TextBlock Text="{Binding LanguageName}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                        </Border>                       
+                    <DataTemplate>
+                        <Border Width="150"
+                                Height="50"
+                                Margin="5"
+                                Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Text="{Binding LanguageName}" />
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

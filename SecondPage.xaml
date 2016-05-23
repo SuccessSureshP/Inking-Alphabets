@@ -7,33 +7,29 @@
 
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1"
-                                 StartPoint="0.5,0">
-                <GradientStop Color="#FF120DE2"
-                              Offset="0" />
-                <GradientStop Color="#FF0E6904"
-                              Offset="1" />
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="0" Color="#FF120DE2" />
+                <GradientStop Offset="1" Color="#FF0E6904" />
             </LinearGradientBrush>
         </Grid.Background>
-        
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="GoBackButton"
-                    Content="go back"
+                    Width="150"
+                    Height="60"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Click="GoBackButtonClick"
-                    FontSize="32"
-                    Width="150"
-                    Height="60" />
-        
+                    Content="go back"
+                    FontSize="32" />
+
             <TextBlock x:Name="DisplayText"
-                       TextWrapping="Wrap"
-                       FontFamily="Segoe UI"
-                       FontSize="24"
                        Margin="0,20,0,0"
                        HorizontalAlignment="Center"
-                       TextAlignment="Center" />
+                       FontFamily="Segoe UI"
+                       FontSize="24"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
 </Page>

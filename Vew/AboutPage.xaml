@@ -1,47 +1,68 @@
-﻿<Page
-    x:Class="InkingAlphabets.AboutPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:InkingAlphabets.Vew"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="InkingAlphabets.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:InkingAlphabets.Vew"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    Foreground="White">
+        <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
             <CommandBar.Content>
                 <Grid Height="48">
-                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
-                               Text="About" 
-                               />
+                    <TextBlock Style="{StaticResource AppTitleTextBlockStyle}" Text="About" />
                 </Grid>
-            </CommandBar.Content>            
+            </CommandBar.Content>
         </CommandBar>
-        <RelativePanel Grid.Row="1">          
-            <RichTextBlock  RelativePanel.AlignTopWithPanel="True" x:Name="DescriptionRichTextblock" Margin="5,0,0,0">
+        <RelativePanel Grid.Row="1">
+            <RichTextBlock x:Name="DescriptionRichTextblock"
+                           Margin="5,0,0,0"
+                           RelativePanel.AlignTopWithPanel="True">
                 <Paragraph FontSize="30">
-                    This is a very useful app to learn new language, or enable kids to practice alphabets of new language. You can add your own languages. Inking slate is very useful for anyone to explain anything. It is virtual white board. Inking Words page is useful to 
-                </Paragraph>             
+                    This is a very useful app to learn new language, or enable kids to practice alphabets of new language. You can add your own languages. Inking slate is very useful for anyone to explain anything. It is virtual white board. Inking Words page is useful to
+                </Paragraph>
 
-                <Paragraph FontSize="30" Margin="0,30,0,0">
+                <Paragraph Margin="0,30,0,0" FontSize="30">
                     Please share your feedback and suggestions by emailing me or by writing a review. Thanks for using this app.
                 </Paragraph>
             </RichTextBlock>
 
-            <Grid RelativePanel.Below="DescriptionRichTextblock" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="0,10,0,0">
+            <Grid Margin="0,10,0,0"
+                  RelativePanel.AlignHorizontalCenterWithPanel="True"
+                  RelativePanel.Below="DescriptionRichTextblock">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>                    
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Content="Send Feedback" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{ThemeResource  SystemControlBackgroundAccentBrush}" Foreground="White"  Margin="0,0,50,0"/>
-                <Button Content="Rate and Review this App" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{ThemeResource  SystemControlBackgroundAccentBrush}" Foreground="White" Margin="0,0,50,0"/>
-                <Button Content="Show App Detials" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{ThemeResource  SystemControlBackgroundAccentBrush}" Foreground="White" Margin="0,0,50,0"/>
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="0,0,50,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Content="Send Feedback"
+                        Foreground="White" />
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,0,50,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Content="Rate and Review this App"
+                        Foreground="White" />
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="0,0,50,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Content="Show App Detials"
+                        Foreground="White" />
             </Grid>
         </RelativePanel>
     </Grid>

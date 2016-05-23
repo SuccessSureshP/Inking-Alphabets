@@ -113,9 +113,9 @@
             <Grid BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,5,0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <RelativePanel Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                <RelativePanel Width="780" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                 <TextBlock Text="Write or copy paste a word here: " x:Name="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                     <TextBox  FontSize="20" Text="అమూల్య" x:Name="InputTextbox" RelativePanel.RightOf="LabelTextblock" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,5" Width="250"/>
                 </RelativePanel>

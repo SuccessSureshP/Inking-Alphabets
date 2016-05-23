@@ -9,104 +9,168 @@
                             Source={StaticResource Locator}}"
     mc:Ignorable="d"
     xmlns:userControls="using:InkingAlphabets.UserControls" >
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+    <RelativePanel>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     Foreground="White">
-            <CommandBar.Content>
-                <Grid Height="48">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
+                <CommandBar.Content>
+                    <Grid Height="48">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource AppTitleTextBlockStyle}"
                                Text="{Binding PageTitle}" 
                                Width="1000"
                                />
-                        <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
+                            <!--<inkTools:InkToolbar x:Name="InkToolbar" TargetInkCanvas="{x:Bind SlateCanvas}"   Margin="10,0,0,0"  
                                         PenColor="#5C9100"
                                          PenSize="25,25" 
                                          ButtonBackground="{ThemeResource SystemControlBackgroundAccentBrush}"
                                          VerticalAlignment="Top" HorizontalAlignment="Right"
                                          ButtonForeground="White"></inkTools:InkToolbar>-->
-                    </StackPanel>
-                </Grid>
-            </CommandBar.Content>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton  Label="Pen" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click" Icon="Edit">
-                    <Button.Flyout>
-                        <Flyout>
-                            <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
+                        </StackPanel>
+                    </Grid>
+                </CommandBar.Content>
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton  Label="Pen" Foreground="{Binding SelectedPenColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="PenColorAppBarButton" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="PenColorAppBarButton_Click" Icon="Edit">
+                        <Button.Flyout>
+                            <Flyout>
+                                <userControls:InkPenSelectorControl PenColor="{Binding SelectedPenColorName,Mode=TwoWay}"   x:Name="SlateInkPenSelectorControl" 
                                                                 PenSize="{Binding PenSize,Mode=TwoWay}"
                                                                 PropertyChanged="SlateInkPenSelectorControl_PropertyChanged"  
                                                                 CloseClicked="SlateInkPenSelectorControl_CloseClicked"/>
-                        </Flyout>
-                    </Button.Flyout>
-                </AppBarButton >
-                <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="Highlight" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
-                    <Button.Flyout>
-                        <Flyout>
-                            <userControls:HighlighterPenSelectorControl 
+                            </Flyout>
+                        </Button.Flyout>
+                    </AppBarButton >
+                    <AppBarButton  Label="Highliter" Foreground="{Binding SelectedHighlighterColor,Converter={StaticResource ColorToBrushConverter}}" x:Name="HighliterAppBarButton" Icon="Highlight" Background="{ThemeResource AppBarToggleButtonCheckedForegroundThemeBrush}"  Margin="1" Click="HighliterAppBarButton_Click">
+                        <Button.Flyout>
+                            <Flyout>
+                                <userControls:HighlighterPenSelectorControl 
                                                                 HighlighterPenColor="{Binding SelectedHighlighterColorName,Mode=TwoWay}"   x:Name="SlateHighliterPenSelectorControl" 
                                                                 HighlighterPenSize="{Binding HighlighterSize,Mode=TwoWay}"
                                                                 PropertyChanged="SlateHighliterPenSelectorControl_PropertyChanged"  
                                                                 CloseClicked="SlateHighliterPenSelectorControl_CloseClicked"/>
-                        </Flyout>
-                    </Button.Flyout>
-                </AppBarButton >
-                <AppBarToggleButton x:Name="AppbarButtonEraser"                                   
+                            </Flyout>
+                        </Button.Flyout>
+                    </AppBarButton >
+                    <AppBarToggleButton x:Name="AppbarButtonEraser"                                   
                                     Checked="AppbarButtonEraser_Checked"
                                     Unchecked="AppbarButtonEraser_Unchecked" 
                                     Label="Eraser" ClickMode="Press" Icon="PostUpdate"
                                     Foreground="White"
                                     Margin="1"
                                    />
-                <AppBarButton x:Name="AppbarButtonClear"
+                    <AppBarButton x:Name="AppbarButtonClear"
                               Click="AppbarButtonClear_Click"
                               Foreground="White"                              
                               Icon="Clear"
                               Label="Clear" />
-                <AppBarToggleButton x:Name="AppbarButtonPan"
+                    <AppBarToggleButton x:Name="AppbarButtonPan"
                                     Icon="BrowsePhotos"
                                     Checked="AppbarButtonPan_Checked"
                                     Unchecked="AppbarButtonPan_Unchecked" 
                                     Label="Pannig" ClickMode="Press"
                                     Foreground="White"
                                    />
-                <AppBarToggleButton x:Name="AppbarButtonGrid"
+                    <AppBarToggleButton x:Name="AppbarButtonGrid"
                                     Icon="SelectAll"       
                                     Label="Grid" ClickMode="Press" 
                                      Foreground="White"
                                    />
-                <AppBarButton x:Name="AppbarButtonOpen"
+                    <AppBarButton x:Name="AppbarButtonOpen"
                                     Icon="OpenFile"       
                                     Label="Open" 
                                     Foreground="White"
                                     Click="AppbarButtonOpen_Click"
                                    />
-                <AppBarButton x:Name="AppbarButtonSave"
+                    <AppBarButton x:Name="AppbarButtonSave"
                                     Icon="Save"       
                                     Label="Save" 
                                     Foreground="White"
                                     Click="AppbarButtonSave_Click"
                                    />
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="ShareAppBarButton"
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:Name="OpenSecondaryAppbarButton"
+                                    Icon="OpenFile"       
+                                    Label="Open" 
+                                   
+                                    Click="AppbarButtonOpen_Click"
+                              Visibility="Collapsed"
+                                   />
+                    <AppBarButton x:Name="SaveSecondaryAppbarButton"
+                                    Icon="Save"       
+                                    Label="Save" 
+                                   
+                                    Click="AppbarButtonSave_Click"
+                              Visibility="Collapsed"
+                                   />
+                    <AppBarButton x:Name="ShareAppBarButton"
                               Icon="ReShare"
                               Label="Share"
                               Click="ShareAppBarButton_Click"/>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-        <Grid Background="Black" Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+            <Grid Background="Black" Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                                 BorderThickness="1,1,1,1">
-            <ScrollViewer x:Name="PenCanvasScrollViewer" ZoomMode="Enabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
-                <Grid Width="5000" Height="2000" Background="White">
-                    <Grid x:Name="GridLinesContainer"  Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <InkCanvas x:Name="SlateCanvas" />
-                </Grid>
-            </ScrollViewer>
+                <ScrollViewer x:Name="PenCanvasScrollViewer" ZoomMode="Enabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid Width="5000" Height="2000" Background="White">
+                        <Grid x:Name="GridLinesContainer"  Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <InkCanvas x:Name="SlateCanvas" />
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
         </Grid>
-    </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=720 effective pixels -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- Widest possible layout moves some elements around to optimize for more available width 
+                        and keeps SplitView pane always showing inline -->
+                        <!--<Setter Target="TitlePanel.Width"
+                            Value="700" />-->                       
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- For intermediate window widths as well as most phones on landscape orientation, 
+                        this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
+                        <!--<Setter Target="TitlePanel.Text"
+                            Value="Changed" />-->
+                        <Setter Target="OpenSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="SaveSecondaryAppbarButton.Visibility" Value="Visible" />
+
+                        <Setter Target="AppbarButtonOpen.Visibility" Value="Collapsed" />
+                        <Setter Target="AppbarButtonSave.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePanel.Width" Value="50" />
+                        <Setter Target="FontSlider.Width" Value="60"/>
+                        <Setter Target="OpenSecondaryAppbarButton.Visibility" Value="Visible" />
+                        <Setter Target="SaveSecondaryAppbarButton.Visibility" Value="Visible" />
+
+                        <Setter Target="AppbarButtonOpen.Visibility" Value="Collapsed" />
+                        <Setter Target="AppbarButtonSave.Visibility" Value="Collapsed" />
+                       
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </RelativePanel>
 </Page>

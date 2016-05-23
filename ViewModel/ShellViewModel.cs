@@ -22,11 +22,11 @@ namespace InkingAlphabets.ViewModel
             // open splitview pane in wide state
             this.IsSplitViewPaneOpen = IsWideState();
 
-            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkAlphabetsPageTitle, PageType = typeof(InkAlphabets) });
+            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkAlphabetsPageTitle, PageType = typeof(InkAlphabets) });//
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.SelectLanguagePageTitle, PageType = typeof(SelectLanguagePage) });
-            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.AddNewLanguagePageTitle, PageType = typeof(AddNewLanguagePage) });
-            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingSlatePageTitle, PageType = typeof(InkingSlatePage) });
+            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.AddNewLanguagePageTitle, PageType = typeof(AddNewLanguagePage) });            
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingWordsPageTitle, PageType = typeof(InkingWordsPage) });
+            TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingSlatePageTitle, PageType = typeof(InkingSlatePage) });
 
 
             //BottomItems.Add(new NavigationItem { Icon = "", DisplayName = App.SettingsPageTitle, PageType = typeof(SettingsPage) });

@@ -39,7 +39,7 @@ namespace InkingAlphabets
         {
             this.InitializeComponent();
             this.Loaded += InkAlphabets_Loaded;
-            this.Unloaded += InkAlphabets_Unloaded;
+            this.Unloaded += InkAlphabets_Unloaded;            
 
             InkCanvas1.InkPresenter.InputDeviceTypes = Windows.UI.Core.CoreInputDeviceTypes.Mouse | Windows.UI.Core.CoreInputDeviceTypes.Pen | Windows.UI.Core.CoreInputDeviceTypes.Touch;
             //InkCanvas1.InkPresenter.UpdateDefaultDrawingAttributes(_blackDrawingAttributes);
@@ -121,14 +121,14 @@ namespace InkingAlphabets
             }
             if (AlphabetslistView != null && viewModel != null && viewModel.CurrentAlphabet != null)
             {
-                var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabeetTextbox").ToList();
-                if (AlphabetTextboxes.Count != 0)
+                var AlphabetTextblocks = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabetTextblock").ToList();
+                if (AlphabetTextblocks.Count != 0)
                 {
-                    var AlphabetTextbox = AlphabetTextboxes.Find(a => a.Text.Equals(viewModel.CurrentAlphabet.AlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
-                    if (AlphabetTextbox != null)
+                    var AlphabetTextblock = AlphabetTextblocks.Find(a => a.Text.Equals(viewModel.CurrentAlphabet.AlphabetCharacter)); //Find textblock which has same character that is appearning no the screen
+                    if (AlphabetTextblock != null)
                     {
                         FontSlider.ValueChanged -= FontSlider_ValueChanged;
-                        FontSlider.Value = AlphabetTextbox.FontSize; //Setting the new letter size to Slider. Syncing both.
+                        FontSlider.Value = AlphabetTextblock.FontSize; //Setting the new letter size to Slider. Syncing both.
                         FontSlider.ValueChanged += FontSlider_ValueChanged;
                     }
                 }
@@ -199,7 +199,7 @@ namespace InkingAlphabets
         //{
         //    var currentAlphabetCharacter = ((Alphabet)AlphabetslistView.SelectedItem).AlphabetCharacter;
 
-        //    var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabeetTextbox").ToList();
+        //    var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabetTextblock").ToList();
 
         //    var AlphabetTextbox = AlphabetTextboxes.Find(a => a.Text.Equals(currentAlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
 
@@ -211,7 +211,7 @@ namespace InkingAlphabets
         //{
         //    var currentAlphabetCharacter = ((Alphabet) AlphabetslistView.SelectedItem).AlphabetCharacter;
 
-        //    var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabeetTextbox").ToList();
+        //    var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabetTextblock").ToList();
 
         //    var AlphabetTextbox = AlphabetTextboxes.Find(a=>a.Text.Equals(currentAlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
 
@@ -220,15 +220,19 @@ namespace InkingAlphabets
 
         private void FontSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            if (AlphabetslistView == null)
-                return;
-            var currentAlphabetCharacter = ((Alphabet)AlphabetslistView.SelectedItem).AlphabetCharacter;
+            if (AlphabetslistView == null || AlphabetslistView.SelectedItem == null)
+                return;           
+            else
+            {
+                var currentAlphabetCharacter = ((Alphabet)AlphabetslistView.SelectedItem).AlphabetCharacter;
 
-            var AlphabetTextboxes = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabeetTextbox").ToList();
+                var AlphabetTextblocks = AlphabetslistView.GetChildrenOfType<TextBlock>().Where(x => x.Name == "AlphabetTextblock").ToList();
 
-            var AlphabetTextbox = AlphabetTextboxes.Find(a => a.Text.Equals(currentAlphabetCharacter)); //Find textbox which has same character that is appearning no the screen
-
-            AlphabetTextbox.FontSize = FontSlider.Value;
+                var AlphabetTextblock = AlphabetTextblocks.Find(a => a.Text.Equals(currentAlphabetCharacter)); //Find textblock which has same character that is appearning no the screen
+                if (AlphabetTextblock == null)
+                    return;
+                AlphabetTextblock.FontSize = FontSlider.Value;
+            }
         }
 
         private async void DeleteLanguageButton_Click(object sender, RoutedEventArgs e)

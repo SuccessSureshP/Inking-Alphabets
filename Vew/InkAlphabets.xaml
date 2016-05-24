@@ -8,6 +8,34 @@
       DataContext="{Binding InkAlphabetsViewModelInstance,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="FullscreenAlphabets">
+            <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1,1,1,1">
+                <TextBlock Name="AlphabetTextblock"
+                           Margin="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="400"
+                           FontStretch="Expanded"
+                           Padding="0"
+                           Text="{Binding AlphabetCharacter}"
+                           TextAlignment="DetectFromContent" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="PhoneScreenAlphabets">
+            <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1,1,1,1">
+                <TextBlock Name="AlphabetTextblock"
+                           Margin="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="185"
+                           FontStretch="Expanded"
+                           Padding="0"
+                           Text="{Binding AlphabetCharacter}"
+                           TextAlignment="DetectFromContent" />
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
     <RelativePanel>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               RelativePanel.AlignLeftWithPanel="True"
@@ -20,7 +48,6 @@
                 <CommandBar.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -162,6 +189,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <FlipView x:Name="AlphabetslistView"
+                          ItemTemplate="{StaticResource FullscreenAlphabets}"
                           ItemsSource="{Binding Alphabets}"
                           SelectedItem="{Binding CurrentAlphabet,
                                                  Mode=TwoWay}"
@@ -171,21 +199,6 @@
                             <VirtualizingStackPanel Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </FlipView.ItemsPanel>
-                    <FlipView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1,1,1,1">
-                                <TextBlock Name="AlphabeetTextbox"
-                                           Margin="0"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="400"
-                                           FontStretch="Expanded"
-                                           Padding="0"
-                                           Text="{Binding AlphabetCharacter}"
-                                           TextAlignment="DetectFromContent" />
-                            </Border>
-                        </DataTemplate>
-                    </FlipView.ItemTemplate>
                 </FlipView>
                 <ProgressRing x:Name="DataLoadingProgressRingControl"
                               Grid.ColumnSpan="2"
@@ -236,6 +249,10 @@
                         <Setter Target="GotoStartAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="FontSlider.Width" Value="60" />
+                        <Setter Target="FontSlider.Maximum" Value="300" />
+                        <Setter Target="FontSlider.Minimum" Value="15" />
+                        <Setter Target="FontSlider.Value" Value="185" />
+                        <Setter Target="AlphabetslistView.ItemTemplate" Value="{StaticResource PhoneScreenAlphabets}" />
 
                     </VisualState.Setters>
                 </VisualState>
@@ -253,6 +270,11 @@
                         <Setter Target="GotoEndAppbarButton.Visibility" Value="Collapsed" />
                         <Setter Target="AppbarButtonNext.Visibility" Value="Collapsed" />
                         <Setter Target="AppbarButtonPrevious.Visibility" Value="Collapsed" />
+                        <Setter Target="FontSlider.Width" Value="60" />
+                        <Setter Target="FontSlider.Maximum" Value="300" />
+                        <Setter Target="FontSlider.Minimum" Value="15" />
+                        <Setter Target="FontSlider.Value" Value="185" />
+                        <Setter Target="AlphabetslistView.ItemTemplate" Value="{StaticResource PhoneScreenAlphabets}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

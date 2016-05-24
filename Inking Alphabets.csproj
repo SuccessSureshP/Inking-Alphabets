@@ -100,7 +100,12 @@
     <Content Include="AlphabetsByLanguage\English.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AlphabetsByLanguage\Telugu.txt" />
+    <Content Include="AlphabetsByLanguage\English Lowercase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlphabetsByLanguage\Telugu.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DB\InkingAlphabets.Sqlite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -5,7 +5,8 @@
     "HockeySDK.UWP": "4.0.0",
     "Intense": "0.5.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "MvvmLightLibs": "5.3.0"
+    "MvvmLightLibs": "5.3.0",
+    "Win2D.uwp": "1.18.0"
   },
   "frameworks": {
     "uap10.0": {}

@@ -122,6 +122,10 @@
                                   Click="ShareAppBarButton_Click"
                                   Icon="ReShare"
                                   Label="Share" />
+                    <AppBarButton x:Name="SaveAsImageAppBarButton"
+                                  Click="SaveAsImageAppBarButton_Click"
+                                  Icon="Save"
+                                  Label="Save as Image" />
                 </CommandBar.SecondaryCommands>
             </CommandBar>
             <Grid Grid.Row="1"
@@ -135,7 +139,11 @@
                     <Grid Width="5000"
                           Height="2000"
                           Background="White">
-                        <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Grid x:Name="parentGrid">
+                            <Image Source="ms-appx:///Assets/InkingSlateBackground.png" Stretch="UniformToFill" />
+                            <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+
                         <InkCanvas x:Name="SlateCanvas" />
                     </Grid>
                 </ScrollViewer>

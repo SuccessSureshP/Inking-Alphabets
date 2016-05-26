@@ -1,5 +1,6 @@
 ﻿using InkingAlphabets.UserControls;
 using InkingAlphabets.ViewModel;
+using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -20,6 +23,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
@@ -43,33 +47,6 @@ namespace InkingAlphabets
             this.Loaded += InkingSlatePage_Loaded;
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
-        }
-
-        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
-        {
-            //DataRequest request = args.Request;
-
-            //StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync("Shared.gif", CreationCollisionOption.ReplaceExisting);
-            //if (null != file)
-            //{
-            //    try
-            //    {
-            //        using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
-            //        {
-            //            await SlateCanvas.InkPresenter.StrokeContainer.SaveAsync(stream);
-            //        }
-            //    }
-            //    catch
-            //    {
-
-            //    }
-            //    //var randomAccessStreamReference = RandomAccessStreamReference.CreateFromFile(file);
-            //    //List<IStorageItem> items = new List<IStorageItem>();
-            //    //items.Add(file);
-            //    request.Data.SetText("Sample");
-            //}
-            ////request.Data.SetText("Sample");
-            //request.Data.Properties.Title = "I used InkAlphabets App to draw this.";
         }
 
         private async void InkingSlatePage_Loaded(object sender, RoutedEventArgs e)
@@ -348,6 +325,174 @@ namespace InkingAlphabets
             if (AppbarButtonEraser.IsChecked != null && (bool)AppbarButtonEraser.IsChecked)
                 AppbarButtonEraser.IsChecked = false;
             ResetToInkPen();
+        }
+
+        private async void SaveAsImageAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            // The original bitmap from the screen, missing the ink.
+            var renderBitmap = new RenderTargetBitmap();
+            await renderBitmap.RenderAsync(this.parentGrid);
+
+            var bitmapSizeAt96Dpi = new Size(
+              renderBitmap.PixelWidth,
+              renderBitmap.PixelHeight);
+
+            var renderBitmapPixels = await renderBitmap.GetPixelsAsync();
+
+            var win2DDevice = CanvasDevice.GetSharedDevice();
+
+            var displayInfo = DisplayInformation.GetForCurrentView();
+
+            using (var win2DTarget = new CanvasRenderTarget(
+              win2DDevice,
+              (float)this.parentGrid.ActualWidth,
+              (float)this.parentGrid.ActualHeight,
+              96.0f))
+            {
+                using (var win2dSession = win2DTarget.CreateDrawingSession())
+                {
+                    using (var win2dRenderedBitmap =
+                      CanvasBitmap.CreateFromBytes(
+                        win2DDevice,
+                        renderBitmapPixels,
+                        (int)bitmapSizeAt96Dpi.Width,
+                        (int)bitmapSizeAt96Dpi.Height,
+                        Windows.Graphics.DirectX.DirectXPixelFormat.B8G8R8A8UIntNormalized,
+                        96.0f))
+                    {
+                        win2dSession.DrawImage(win2dRenderedBitmap,
+                          new Rect(0, 0, win2DTarget.SizeInPixels.Width, win2DTarget.SizeInPixels.Height),
+                          new Rect(0, 0, bitmapSizeAt96Dpi.Width, bitmapSizeAt96Dpi.Height));
+                    }
+                    win2dSession.Units = CanvasUnits.Pixels;
+                    win2dSession.DrawInk(this.SlateCanvas.InkPresenter.StrokeContainer.GetStrokes());
+                }
+                // Get the output into a software bitmap.
+                //var outputBitmap = new SoftwareBitmap(
+                // BitmapPixelFormat.Bgra8,
+                // (int)win2DTarget.SizeInPixels.Width,
+                // (int)win2DTarget.SizeInPixels.Height,
+                // BitmapAlphaMode.Premultiplied);
+
+                //outputBitmap.CopyFromBuffer(
+                //          win2DTarget.GetPixelBytes().AsBuffer());
+
+                //// Now feed that to the XAML image.
+                //var source = new SoftwareBitmapSource();
+                //await source.SetBitmapAsync(outputBitmap);
+                //this.SecondImage.Source = source;
+
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                savePicker.FileTypeChoices.Add("GIF with embedded ISF", new System.Collections.Generic.List<string> { ".png" });
+                StorageFile targetFile = await savePicker.PickSaveFileAsync();
+
+                if (targetFile != null)
+                {
+                    using (var stream = await targetFile.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        var logicalDpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+                        var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                        encoder.SetPixelData(
+                            BitmapPixelFormat.Bgra8,
+                            BitmapAlphaMode.Ignore,
+                            win2DTarget.SizeInPixels.Width,
+                            win2DTarget.SizeInPixels.Height,
+                            logicalDpi,
+                            logicalDpi,
+                            win2DTarget.GetPixelBytes());
+
+                        await encoder.FlushAsync();
+                    }
+                }
+            }
+
+        }
+
+
+        private async void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            var deferral = request.GetDeferral();
+            try
+            {
+                var ms = await getFileStream();
+                var randomAccessStreamReference = RandomAccessStreamReference.CreateFromStream(ms);
+                request.Data.SetBitmap(randomAccessStreamReference);
+                request.Data.Properties.Title = "I used Inking Alphabets App to draw this.";
+            }
+            catch (Exception ex)
+            {
+                MessageDialog msg = new MessageDialog("Something went wrong! Sorry. Please try again");
+                await msg.ShowAsync();
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Sharing as Image failed with exception :{ex.Message}");
+            }
+            finally
+            {
+                deferral.Complete();
+            }
+        }
+
+        async System.Threading.Tasks.Task<InMemoryRandomAccessStream> getFileStream()
+        {
+            // The original bitmap from the screen, missing the ink.
+            var renderBitmap = new RenderTargetBitmap();
+            await renderBitmap.RenderAsync(this.parentGrid);
+
+            var bitmapSizeAt96Dpi = new Size(
+              renderBitmap.PixelWidth,
+              renderBitmap.PixelHeight);
+
+            var renderBitmapPixels = await renderBitmap.GetPixelsAsync();
+
+            var win2DDevice = CanvasDevice.GetSharedDevice();
+
+            var displayInfo = DisplayInformation.GetForCurrentView();
+
+            using (var win2DTarget = new CanvasRenderTarget(
+              win2DDevice,
+              (float)this.parentGrid.ActualWidth,
+              (float)this.parentGrid.ActualHeight,
+              96.0f))
+            {
+                using (var win2dSession = win2DTarget.CreateDrawingSession())
+                {
+                    using (var win2dRenderedBitmap =
+                      CanvasBitmap.CreateFromBytes(
+                        win2DDevice,
+                        renderBitmapPixels,
+                        (int)bitmapSizeAt96Dpi.Width,
+                        (int)bitmapSizeAt96Dpi.Height,
+                        Windows.Graphics.DirectX.DirectXPixelFormat.B8G8R8A8UIntNormalized,
+                        96.0f))
+                    {
+                        win2dSession.DrawImage(win2dRenderedBitmap,
+                          new Rect(0, 0, win2DTarget.SizeInPixels.Width, win2DTarget.SizeInPixels.Height),
+                          new Rect(0, 0, bitmapSizeAt96Dpi.Width, bitmapSizeAt96Dpi.Height));
+                    }
+                    win2dSession.Units = CanvasUnits.Pixels;
+                    win2dSession.DrawInk(this.SlateCanvas.InkPresenter.StrokeContainer.GetStrokes());
+                }
+
+                InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream();
+
+                var logicalDpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, ms);
+                encoder.SetPixelData(
+                    BitmapPixelFormat.Bgra8,
+                    BitmapAlphaMode.Ignore,
+                    win2DTarget.SizeInPixels.Width,
+                    win2DTarget.SizeInPixels.Height,
+                    logicalDpi,
+                    logicalDpi,
+                    win2DTarget.GetPixelBytes());
+
+                await encoder.FlushAsync();
+                ms.Seek(0);
+
+                return ms;
+
+            }
         }
     }
 }

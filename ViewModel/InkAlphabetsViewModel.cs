@@ -202,8 +202,8 @@ namespace InkingAlphabets.ViewModel
             {
                 var sourceFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
                 var destnationFolder = ApplicationData.Current.LocalFolder;
-                await destnationFolder.CreateFolderAsync(App.AssetsFolderName, CreationCollisionOption.ReplaceExisting);
-                File.Copy(Path.Combine(sourceFolder.Path, App.AssetsFolderName, "InkingSlateBackground.png"), Path.Combine(destnationFolder.Path, App.AssetsFolderName, "InkingSlateBackground.png"), true);
+                await destnationFolder.CreateFolderAsync(App.AssetsFolderName, CreationCollisionOption.ReplaceExisting);                
+                File.Copy(Path.Combine(sourceFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), Path.Combine(destnationFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), true);
                 _localSettings["SlateBackgroundImageStatus"] = "DefaultImageCopied";
             }
             catch (Exception exp)

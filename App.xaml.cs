@@ -26,6 +26,7 @@ namespace InkingAlphabets
         public static string InkingWordsPageTitle = "Inking Words";
         public static string AboutPageTitle = "About";
         public static string SettingsPageTitle = "Settings";
+        public static string InkingSlateBackgroundFileName = "InkingSlateBackground.jpg";
 
 
 

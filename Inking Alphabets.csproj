@@ -106,9 +106,7 @@
     <Content Include="AlphabetsByLanguage\Telugu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\InkingSlateBackground.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assets\InkingSlateBackground.jpg" />
     <Content Include="DB\InkingAlphabets.Sqlite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

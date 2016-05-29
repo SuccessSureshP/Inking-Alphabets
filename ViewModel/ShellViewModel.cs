@@ -29,7 +29,7 @@ namespace InkingAlphabets.ViewModel
             TopItems.Add(new NavigationItem { Icon = "", DisplayName = App.InkingSlatePageTitle, PageType = typeof(InkingSlatePage) });
 
 
-            //BottomItems.Add(new NavigationItem { Icon = "", DisplayName = App.SettingsPageTitle, PageType = typeof(SettingsPage) });
+            BottomItems.Add(new NavigationItem { Icon = "", DisplayName = App.SettingsPageTitle, PageType = typeof(SettingsPage) });
             BottomItems.Add(new NavigationItem { Icon = "", DisplayName = App.AboutPageTitle, PageType = typeof(AboutPage) });
 
             SelectedItem = TopItems.First();

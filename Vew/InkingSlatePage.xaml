@@ -140,7 +140,7 @@
                           Height="2000"
                           Background="White">
                         <Grid x:Name="parentGrid">
-                            <Image Source="ms-appx:///Assets/InkingSlateBackground.png" Stretch="UniformToFill" />
+                            <Image x:Name="bgimage" Stretch="UniformToFill" />
                             <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
 

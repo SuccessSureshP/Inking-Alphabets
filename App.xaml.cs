@@ -15,6 +15,7 @@ namespace InkingAlphabets
     sealed partial class App
     {
         public static string LocalDbFolderName = "DB";
+        public static string AssetsFolderName = "Assets";
         public static string LocalDbName = "InkingAlphabets.Sqlite";
         public static string AlphabetsByLanguageFolderName = "AlphabetsByLanguage";
 

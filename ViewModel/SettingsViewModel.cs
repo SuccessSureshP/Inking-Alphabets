@@ -13,7 +13,7 @@ namespace InkingAlphabets.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
-        private string _pageTitle = string.Empty;
+        private string _pageTitle = string.Empty;        
 
         public string PageTitle
         {
@@ -30,7 +30,7 @@ namespace InkingAlphabets.ViewModel
 
         public SettingsViewModel()
         {
-            PageTitle = "Settings";
+            PageTitle = "Settings";           
         }
     }
 }

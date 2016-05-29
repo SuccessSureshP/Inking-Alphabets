@@ -70,6 +70,37 @@ namespace InkingAlphabets
 
             var selectedHighlighter = SlateHighliterPenSelectorControl.HighlighterPens.FirstOrDefault(p => p.Name.Equals(viewModel.SelectedHighlighterColorName));
             viewModel.SelectedHighlighterColor = selectedHighlighter.Pencolor;
+
+            //Background setup:
+
+            var LocalDataFolder = ApplicationData.Current.LocalFolder;
+            var assetsFolder = await LocalDataFolder.GetFolderAsync(App.AssetsFolderName);
+            var file = await assetsFolder.GetFileAsync("InkingSlateBackground.png");
+            var data = await FileIO.ReadBufferAsync(file);
+
+            // create a stream from the file
+            var ms = new InMemoryRandomAccessStream();
+            var dw = new Windows.Storage.Streams.DataWriter(ms);
+            dw.WriteBuffer(data);
+            await dw.StoreAsync();
+            ms.Seek(0);
+
+            // find out how big the image is, don't need this if you already know
+            var bm = new BitmapImage();
+            bm.DecodePixelHeight = 480;
+            bm.DecodePixelWidth = 480;
+
+            await bm.SetSourceAsync(ms);
+
+            // create a writable bitmap of the right size
+            var wb = new WriteableBitmap(bm.PixelWidth, bm.PixelHeight);
+            ms.Seek(0);
+
+            // load the writable bitpamp from the stream
+            await wb.SetSourceAsync(ms);
+
+            bgimage.Source = wb;
+
         }
 
         private async void InkPresenter_StrokesErased(InkPresenter sender, InkStrokesErasedEventArgs args)

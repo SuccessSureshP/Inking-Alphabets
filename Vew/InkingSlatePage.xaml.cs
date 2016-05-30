@@ -55,6 +55,10 @@ namespace InkingAlphabets
 
         private async void InkingSlatePage_Loaded(object sender, RoutedEventArgs e)
         {
+
+            if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                ShareInkingAppBarButton.Visibility = Visibility.Collapsed;
+
             if (!_isInitialized)
                 InitializeGrid();
             _isInitialized = true;

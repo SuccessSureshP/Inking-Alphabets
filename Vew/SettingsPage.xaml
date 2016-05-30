@@ -50,8 +50,8 @@
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     BorderThickness="1">
                 <Image x:Name="gbImage"
-                       Width="600"
-                       Height="500"
+                       Margin="50"
+                     
                        Stretch="Uniform" />
             </Border>
 

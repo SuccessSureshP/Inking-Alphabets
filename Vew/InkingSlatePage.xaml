@@ -136,11 +136,12 @@
                               HorizontalScrollBarVisibility="Auto"
                               HorizontalScrollMode="Auto"
                               ZoomMode="Enabled">
-                    <Grid Width="5000"
-                          Height="2000"
-                          Background="White">
+                    <Grid Width="2000"
+                          Height="1000"
+                          Background="White"
+                          x:Name="InkingGrid">
                         <Grid x:Name="parentGrid">
-                            <Image x:Name="bgimage" Stretch="UniformToFill" />
+                            <Image x:Name="bgimage" Stretch="Fill" />
                             <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
 
@@ -182,6 +183,8 @@
 
                         <Setter Target="AppbarButtonOpen.Visibility" Value="Collapsed" />
                         <Setter Target="AppbarButtonSave.Visibility" Value="Collapsed" />
+                        <Setter Target="InkingGrid.Width" Value="1000" />
+                        <Setter Target="InkingGrid.Height" Value="500" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -195,8 +198,8 @@
                         <Setter Target="OpenSecondaryAppbarButton.Visibility" Value="Visible" />
                         <Setter Target="SaveSecondaryAppbarButton.Visibility" Value="Visible" />
 
-                        <Setter Target="AppbarButtonOpen.Visibility" Value="Collapsed" />
-                        <Setter Target="AppbarButtonSave.Visibility" Value="Collapsed" />
+                        <Setter Target="InkingGrid.Width" Value="1000" />
+                        <Setter Target="InkingGrid.Height" Value="500" />
 
                     </VisualState.Setters>
                 </VisualState>

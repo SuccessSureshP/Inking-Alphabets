@@ -39,6 +39,7 @@ namespace InkingAlphabets
             if (_localSettings["SlateBackgroundImageStatus"].Equals("DefaultImageCopied"))
             {
                 ChangeInkingSlateBGButton.Content = "Click to Add";
+                RemoveInkingSlateBGButton.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -79,11 +80,12 @@ namespace InkingAlphabets
                 if (newbgFile != null)
                 {   
                     await newbgFile.CopyAsync(destnationFolder, App.InkingSlateBackgroundFileName, NameCollisionOption.ReplaceExisting);
+
+                    await LoadImageIntoThePage();
+                    _localSettings["SlateBackgroundImageStatus"] = "DefaultImageReplaced";
+                    ChangeInkingSlateBGButton.Content = "Click to Change";
+                    RemoveInkingSlateBGButton.Visibility = Visibility.Visible;
                 }
-
-                await LoadImageIntoThePage();
-                _localSettings["SlateBackgroundImageStatus"] = "DefaultImageReplaced";
-
             }
             catch (Exception exp)
             {
@@ -92,6 +94,14 @@ namespace InkingAlphabets
                 msgDialog1.Commands.Add(new UICommand("Ok"));
                 await msgDialog1.ShowAsync();
             }
+        }
+
+        private async void RemoveInkingSlateBGButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Common.CopyDefaultSlateBackgroundImage();
+            ChangeInkingSlateBGButton.Content = "Click to Add";
+            RemoveInkingSlateBGButton.Visibility = Visibility.Collapsed;
+            await LoadImageIntoThePage();
         }
     }
 }

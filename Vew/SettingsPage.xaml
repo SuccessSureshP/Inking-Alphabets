@@ -31,6 +31,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="RemoveInkingSlateBGButton"
+                    Grid.Column="1"
+                    Margin="0,10,10,10"
+                    HorizontalAlignment="Center"
+                    Click="RemoveInkingSlateBGButton_Click"
+                    Content="Click to Remove" />
             <StackPanel Grid.Row="0"
                         Margin="0,10,0,10"
                         Orientation="Horizontal">
@@ -46,11 +56,13 @@
                         Click="ChangeInkingSlateBGButton_Click"
                         Content="Click to Change" />
                 <TextBlock Grid.RowSpan="2"
-                           Margin="30,0,0,0"
+                           Margin="10,0,0,0"
                            VerticalAlignment="Center"
-                           Text="(Landscape photos preferred)" />
+                           FontSize="10"
+                           Text="(Landscape photo preferred)" />
             </StackPanel>
             <Border Grid.Row="1"
+                    Grid.ColumnSpan="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     BorderThickness="1">
                 <Image x:Name="gbImage"

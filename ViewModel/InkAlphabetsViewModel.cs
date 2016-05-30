@@ -193,26 +193,8 @@ namespace InkingAlphabets.ViewModel
             }
             IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
             if(!_localSettings.Keys.Contains("SlateBackgroundImageStatus"))
-                await CopySlateBackgroundImage();
+                await Common.CopyDefaultSlateBackgroundImage();
         }
-
-        private async Task CopySlateBackgroundImage()
-        {
-            try
-            {
-                var sourceFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-                var destnationFolder = ApplicationData.Current.LocalFolder;
-                await destnationFolder.CreateFolderAsync(App.AssetsFolderName, CreationCollisionOption.ReplaceExisting);                
-                File.Copy(Path.Combine(sourceFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), Path.Combine(destnationFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), true);
-                _localSettings["SlateBackgroundImageStatus"] = "DefaultImageCopied";
-            }
-            catch (Exception exp)
-            {
-                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"CopySlateBackgroundImage Failed with Exception:{exp.Message}");
-                throw exp;
-            }
-        }
-
         public async Task UpdateAlphabetStream(InkCanvas canvas)
         {
             await CurrentAlphabet.UpdateScreenAsync(canvas);

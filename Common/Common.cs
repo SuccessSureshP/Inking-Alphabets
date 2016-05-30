@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -80,6 +82,22 @@ namespace InkingAlphabets
             return defaultValue;
         }
 
+        public static async Task CopyDefaultSlateBackgroundImage()
+        {
+            try
+            {
+                var sourceFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+                var destnationFolder = ApplicationData.Current.LocalFolder;
+                await destnationFolder.CreateFolderAsync(App.AssetsFolderName, CreationCollisionOption.ReplaceExisting);
+                File.Copy(Path.Combine(sourceFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), Path.Combine(destnationFolder.Path, App.AssetsFolderName, App.InkingSlateBackgroundFileName), true);
+                _localSettings["SlateBackgroundImageStatus"] = "DefaultImageCopied";
+            }
+            catch (Exception exp)
+            {
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"CopySlateBackgroundImage Failed with Exception:{exp.Message}");
+                throw exp;
+            }
+        }
     }
 
 

@@ -47,7 +47,11 @@ namespace InkingAlphabets
         {
             if (!_isInitialized)
                 InitializeGrid();
-            _isInitialized = true;
+
+            if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                RecognizeButton.Visibility = Visibility.Collapsed;
+        
+        _isInitialized = true;
             SlateCanvas.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected; ;
             SlateCanvas.InkPresenter.StrokesErased += InkPresenter_StrokesErased;
 

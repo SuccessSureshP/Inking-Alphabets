@@ -12,7 +12,7 @@
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <CommandBar Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
                 <CommandBar.Content>
@@ -115,10 +115,12 @@
                                         Label="Pannig"
                                         Unchecked="AppbarButtonPan_Unchecked" />
                     <AppBarToggleButton x:Name="AppbarButtonGrid"
+                                        Checked="AppbarButtonGrid_Checked"
                                         ClickMode="Press"
                                         Foreground="White"
                                         Icon="SelectAll"
-                                        Label="Grid" />
+                                        Label="Grid"
+                                        Unchecked="AppbarButtonGrid_Unchecked" />
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarToggleButton x:Name="PanSecondaryAppbarButton"
@@ -129,9 +131,11 @@
                                         Unchecked="AppbarButtonPan_Unchecked"
                                         Visibility="Collapsed" />
                     <AppBarToggleButton x:Name="GridSecondaryAppbarButton"
+                                        Checked="GridSecondaryAppbarButton_Checked"
                                         ClickMode="Press"
                                         Icon="SelectAll"
                                         Label="Grid"
+                                        Unchecked="GridSecondaryAppbarButton_Unchecked"
                                         Visibility="Collapsed" />
                 </CommandBar.SecondaryCommands>
             </CommandBar>
@@ -141,9 +145,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid Margin="0,5,0,5"
+                <Grid Margin="0,5,0,0"
                       BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                       BorderThickness="0,0,0,1">
                     <Grid.ColumnDefinitions>
@@ -155,12 +159,13 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center">
                         <TextBlock x:Name="LabelTextblock"
+                                   Margin="0,0,0,5"
+                                   VerticalAlignment="Center"
                                    RelativePanel.AlignVerticalCenterWithPanel="True"
                                    Text="Write or copy paste a word here: " />
                         <TextBox x:Name="InputTextbox"
                                  Width="250"
                                  Margin="10,0,0,5"
-                                 FontSize="20"
                                  RelativePanel.AlignVerticalCenterWithPanel="True"
                                  RelativePanel.RightOf="LabelTextblock"
                                  Text="అమూల్య" />
@@ -188,11 +193,14 @@
                       BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                       BorderThickness="0,1,0,0">
                     <ScrollViewer x:Name="PenCanvasScrollViewer"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
                                   HorizontalScrollBarVisibility="Auto"
                                   HorizontalScrollMode="Auto"
                                   ZoomMode="Enabled">
-                        <Grid Width="5000"
-                              Height="2000"
+                        <Grid x:Name="InkingGrid"
+                              Width="2000"
+                              Height="1000"
                               Background="White">
                             <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <InkCanvas x:Name="SlateCanvas" />
@@ -236,10 +244,14 @@
                         <Setter Target="AppbarButtonGrid.Visibility" Value="Collapsed" />
 
                         <Setter Target="TitlePanel.Width" Value="300" />
-                        <Setter Target="FontSlider.Maximum" Value="300" />
-                        <Setter Target="FontSlider.Minimum" Value="15" />
-                        <Setter Target="FontSlider.Value" Value="100" />
+
+                        <Setter Target="FontSlider.Maximum" Value="125" />
+                        <Setter Target="FontSlider.Minimum" Value="25" />
+                        <Setter Target="FontSlider.Value" Value="80" />
                         <Setter Target="FontSlider.Width" Value="60" />
+
+                        <Setter Target="InkingGrid.Width" Value="1000" />
+                        <Setter Target="InkingGrid.Height" Value="500" />
 
 
                     </VisualState.Setters>
@@ -257,10 +269,14 @@
                         <Setter Target="AppbarButtonGrid.Visibility" Value="Collapsed" />
 
                         <Setter Target="TitlePanel.Width" Value="300" />
-                        <Setter Target="FontSlider.Maximum" Value="300" />
-                        <Setter Target="FontSlider.Minimum" Value="15" />
-                        <Setter Target="FontSlider.Value" Value="100" />
+
+                        <Setter Target="FontSlider.Maximum" Value="125" />
+                        <Setter Target="FontSlider.Minimum" Value="25" />
+                        <Setter Target="FontSlider.Value" Value="80" />
                         <Setter Target="FontSlider.Width" Value="60" />
+
+                        <Setter Target="InkingGrid.Width" Value="1000" />
+                        <Setter Target="InkingGrid.Height" Value="500" />
 
                     </VisualState.Setters>
                 </VisualState>

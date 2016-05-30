@@ -129,11 +129,20 @@ namespace InkingAlphabets
         private void AppbarButtonPan_Checked(object sender, RoutedEventArgs e)
         {
             SlateCanvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Mouse | CoreInputDeviceTypes.Pen;
+            if (sender.ToString().Equals(AppbarButtonPan.ToString()))
+                PanSecondaryAppbarButton.IsChecked = true;
+            else
+                AppbarButtonPan.IsChecked = true;
+
         }
 
         private void AppbarButtonPan_Unchecked(object sender, RoutedEventArgs e)
         {
             SlateCanvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Mouse | CoreInputDeviceTypes.Pen | CoreInputDeviceTypes.Touch;
+            if (sender.ToString().Equals(AppbarButtonPan.ToString()))
+                PanSecondaryAppbarButton.IsChecked = false;
+            else
+                AppbarButtonPan.IsChecked = false;
         }
 
         private void AppbarButtonEraser_Checked(object sender, RoutedEventArgs e)
@@ -254,6 +263,26 @@ namespace InkingAlphabets
             if (AppbarButtonEraser.IsChecked != null && (bool)AppbarButtonEraser.IsChecked)
                 AppbarButtonEraser.IsChecked = false;
             ResetToInkPen();
+        }
+
+        private void GridSecondaryAppbarButton_Checked(object sender, RoutedEventArgs e)
+        {
+            AppbarButtonGrid.IsChecked = true;
+        }
+
+        private void GridSecondaryAppbarButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            AppbarButtonGrid.IsChecked = false;
+        }
+
+        private void AppbarButtonGrid_Checked(object sender, RoutedEventArgs e)
+        {
+            GridSecondaryAppbarButton.IsChecked = true;
+        }
+
+        private void AppbarButtonGrid_Unchecked(object sender, RoutedEventArgs e)
+        {
+            GridSecondaryAppbarButton.IsChecked = false;
         }
     }
 }

@@ -40,7 +40,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Language Name: " />
+                <TextBlock VerticalAlignment="Center" Text="Language Name: " />
                 <TextBox x:Name="LanguageTextBox"
                          Grid.Column="1"
                          Width="300"

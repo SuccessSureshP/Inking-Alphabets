@@ -100,32 +100,45 @@
                                   Click="AppbarButtonOpen_Click"
                                   Foreground="White"
                                   Icon="OpenFile"
-                                  Label="Open" />
+                                  Label="Open Inking"
+                                  ToolTipService.ToolTip="Open Inking File" />
                     <AppBarButton x:Name="AppbarButtonSave"
                                   Click="AppbarButtonSave_Click"
                                   Foreground="White"
                                   Icon="Save"
-                                  Label="Save" />
+                                  Label="Save Inking"
+                                  ToolTipService.ToolTip="Save as Inking File" />
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Name="OpenSecondaryAppbarButton"
                                   Click="AppbarButtonOpen_Click"
                                   Icon="OpenFile"
-                                  Label="Open"
+                                  Label="Open Inking"
+                                  ToolTipService.ToolTip="Open Inking File"
                                   Visibility="Collapsed" />
                     <AppBarButton x:Name="SaveSecondaryAppbarButton"
                                   Click="AppbarButtonSave_Click"
                                   Icon="Save"
-                                  Label="Save"
+                                  Label="Save Inking"
+                                  ToolTipService.ToolTip="Save as Inking File"
                                   Visibility="Collapsed" />
-                    <AppBarButton x:Name="ShareAppBarButton"
-                                  Click="ShareAppBarButton_Click"
+                    <AppBarButton x:Name="ShareInkingAppBarButton"
+                                  Click="ShareInkingAppBarButton_Click"
                                   Icon="ReShare"
-                                  Label="Share" />
+                                  Label="Share Inking"
+                                  ToolTipService.ToolTip="Share Inking File" />
                     <AppBarButton x:Name="SaveAsImageAppBarButton"
                                   Click="SaveAsImageAppBarButton_Click"
                                   Icon="Save"
-                                  Label="Save as Image" />
+                                  Label="Save as a Picture"
+                                  ToolTipService.ToolTip="Save Inking with background as a Picture" />
+                    <AppBarButton x:Name="ShareAppBarButton"
+                                  Click="ShareAppBarButton_Click"
+                                  Icon="ReShare"
+                                  Label="Share as a Picture"
+                                  ToolTipService.ToolTip="Share Inking with background as a Picture" />
+
+
                 </CommandBar.SecondaryCommands>
             </CommandBar>
             <Grid Grid.Row="1"
@@ -136,10 +149,10 @@
                               HorizontalScrollBarVisibility="Auto"
                               HorizontalScrollMode="Auto"
                               ZoomMode="Enabled">
-                    <Grid Width="2000"
+                    <Grid x:Name="InkingGrid"
+                          Width="2000"
                           Height="1000"
-                          Background="White"
-                          x:Name="InkingGrid">
+                          Background="White">
                         <Grid x:Name="parentGrid">
                             <Image x:Name="bgimage" Stretch="Fill" />
                             <Grid x:Name="GridLinesContainer" Visibility="{Binding IsChecked, ElementName=AppbarButtonGrid, Converter={StaticResource BooleanToVisibilityConverter}}" />

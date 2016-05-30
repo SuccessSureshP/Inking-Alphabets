@@ -45,13 +45,16 @@
                         HorizontalAlignment="Center"
                         Click="ChangeInkingSlateBGButton_Click"
                         Content="Click to Change" />
+                <TextBlock Grid.RowSpan="2"
+                           Margin="30,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="(Landscape photos preferred)" />
             </StackPanel>
             <Border Grid.Row="1"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     BorderThickness="1">
                 <Image x:Name="gbImage"
                        Margin="50"
-                     
                        Stretch="Uniform" />
             </Border>
 

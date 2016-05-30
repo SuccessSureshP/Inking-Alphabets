@@ -40,6 +40,9 @@ namespace InkingAlphabets
         private InkingSlatePageViewModel viewModel;
         private InkDrawingAttributes _blackDrawingAttributes;
         private Boolean _isInitialized;
+        IPropertySet _localSettings = Windows.Storage.ApplicationData.Current.LocalSettings.Values;
+        private string ShareType = string.Empty;
+          
         public InkingSlatePage()
         {
             this.InitializeComponent();
@@ -194,6 +197,7 @@ namespace InkingAlphabets
             {
                 var savePicker = new Windows.Storage.Pickers.FileSavePicker();
                 savePicker.FileTypeChoices.Add("GIF with embedded ISF", new System.Collections.Generic.List<string> { ".gif" });
+                savePicker.SuggestedFileName = "InkingSlateFile";
                 StorageFile file = await savePicker.PickSaveFileAsync();
                 if (null != file)
                 {
@@ -202,7 +206,7 @@ namespace InkingAlphabets
                         using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
                         {
                             await SlateCanvas.InkPresenter.StrokeContainer.SaveAsync(stream);
-                            var msgDialog = new MessageDialog("All your Inking Saved! You want to start fresh again?");
+                            var msgDialog = new MessageDialog("All your Inking Saved! Do you want to start fresh Inking on the Slate?");
                             msgDialog.Commands.Add(new UICommand("Yes",new UICommandInvokedHandler( (IUICommand c) =>  
                             {
                                 SlateCanvas.InkPresenter.StrokeContainer.Clear();
@@ -231,11 +235,27 @@ namespace InkingAlphabets
         {
             //SystemNavigationManager.GetForCurrentView().BackRequested += Page_BackRequested;
         }
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override async void OnNavigatedFrom(NavigationEventArgs e)
         {
             viewModel.CacheInkingSlateData();
-            //SystemNavigationManager.GetForCurrentView().BackRequested -= Page_BackRequested;
+
+            IStorageFile file = null;
+
+            try
+            {
+                if (!_localSettings.Keys.Contains("ShareInkingFilename"))
+                    return;
+
+                var LocalDataFolder = ApplicationData.Current.LocalFolder;
+                file = await LocalDataFolder.GetFileAsync(_localSettings["ShareInkingFilename"].ToString());
+                await file.DeleteAsync();
+            }
+            catch (Exception exp)
+            {
+
+            }
         }
+
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
@@ -284,6 +304,7 @@ namespace InkingAlphabets
 
         private void ShareAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            ShareType = "ShareInkAsImage";
             DataTransferManager.ShowShareUI();
         }
 
@@ -422,6 +443,14 @@ namespace InkingAlphabets
 
                         await encoder.FlushAsync();
                     }
+
+                    var msgDialog = new MessageDialog("Your Inking Saved along with background as a picture! Do you want to start fresh inking on the Slate?");
+                    msgDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler((IUICommand c) =>
+                    {
+                        SlateCanvas.InkPresenter.StrokeContainer.Clear();
+                    })));
+                    msgDialog.Commands.Add(new UICommand("No/Cancel"));
+                    await msgDialog.ShowAsync();
                 }
             }
 
@@ -430,24 +459,58 @@ namespace InkingAlphabets
 
         private async void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
-            DataRequest request = args.Request;
-            var deferral = request.GetDeferral();
-            try
+            if (ShareType.Equals("ShareInkStrokes"))
             {
-                var ms = await getFileStream();
-                var randomAccessStreamReference = RandomAccessStreamReference.CreateFromStream(ms);
-                request.Data.SetBitmap(randomAccessStreamReference);
-                request.Data.Properties.Title = "I used Inking Alphabets App to draw this.";
+
+                DataRequest request = args.Request;
+                IStorageFile file = null;
+                var deferral = request.GetDeferral();
+                try
+                {
+
+                    var LocalDataFolder = ApplicationData.Current.LocalFolder;
+                    file = await LocalDataFolder.GetFileAsync(_localSettings["ShareInkingFilename"].ToString());
+                    
+                    List<IStorageItem> st_items = new List<IStorageItem>();
+                    st_items.Add(file);
+
+                    request.Data.SetStorageItems(st_items);
+                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabet App!";
+                    request.Data.Properties.Description = "I used Inking Alphabets App to draw this Inking. You can open with same App and edit Ink Strokes.";
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog msg = new MessageDialog("Something went wrong! Sorry. Please try again");
+                    await msg.ShowAsync();
+                    Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Sharing the Strokes failed with exception :{ex.Message}");
+                }
+                finally
+                {
+                    deferral.Complete();
+                }
             }
-            catch (Exception ex)
+            else if(ShareType.Equals("ShareInkAsImage"))
             {
-                MessageDialog msg = new MessageDialog("Something went wrong! Sorry. Please try again");
-                await msg.ShowAsync();
-                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Sharing as Image failed with exception :{ex.Message}");
-            }
-            finally
-            {
-                deferral.Complete();
+                DataRequest request = args.Request;
+                var deferral = request.GetDeferral();
+                try
+                {
+                    var ms = await getFileStream();
+                    var randomAccessStreamReference = RandomAccessStreamReference.CreateFromStream(ms);
+                    request.Data.SetBitmap(randomAccessStreamReference);
+                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabet App!";
+                    request.Data.Properties.Description = "I used Inking Alphabets App to draw this.";
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog msg = new MessageDialog("Something went wrong! Sorry. Please try again");
+                    await msg.ShowAsync();
+                    Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Sharing as Image failed with exception :{ex.Message}");
+                }
+                finally
+                {
+                    deferral.Complete();
+                }
             }
         }
 
@@ -510,6 +573,51 @@ namespace InkingAlphabets
 
                 return ms;
 
+            }
+        }
+
+        private async void ShareInkingAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (SlateCanvas.InkPresenter.StrokeContainer.GetStrokes().Count <= 0)
+                {
+                    var msgDialog = new MessageDialog("You haven't started inking yet. Start Inking and then share!");
+                    msgDialog.Commands.Add(new UICommand("Ok"));
+                    await msgDialog.ShowAsync();
+                    return;
+                }
+
+                var LocalDataFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file;
+                try
+                {
+                    if (_localSettings.Keys.Contains("ShareInkingFilename"))
+                    {
+                        file = await LocalDataFolder.GetFileAsync(_localSettings["ShareInkingFilename"].ToString());
+                        await file.DeleteAsync();
+                    }
+                }
+                catch (FileNotFoundException exp)
+                {
+
+                }
+                file = null;
+                file = await LocalDataFolder.CreateFileAsync("InkingFile.gif", CreationCollisionOption.GenerateUniqueName);
+                _localSettings["ShareInkingFilename"] = file.Name;
+
+                var filestream = await file.OpenAsync(FileAccessMode.ReadWrite);
+
+                await SlateCanvas.InkPresenter.StrokeContainer.SaveAsync(filestream);
+                ShareType = "ShareInkStrokes";
+                DataTransferManager.ShowShareUI();
+            }
+            catch (Exception ex)
+            {
+                MessageDialog msg = new MessageDialog("Something went wrong! Sorry. Please try again");
+                await msg.ShowAsync();
+                Microsoft.HockeyApp.HockeyClient.Current.TrackEvent($"Sharing Inking failed with exception :{ex.Message}");
             }
         }
     }

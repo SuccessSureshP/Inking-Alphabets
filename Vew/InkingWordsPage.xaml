@@ -96,30 +96,37 @@
                         </Button.Flyout>
                     </AppBarButton>
                     <AppBarToggleButton x:Name="AppbarButtonEraser"
+                                        Margin="1"
                                         Checked="AppbarButtonEraser_Checked"
                                         ClickMode="Press"
                                         Foreground="White"
                                         Icon="PostUpdate"
                                         Label="Eraser"
+                                        Style="{StaticResource AppBarToggleButtonStyle}"
                                         Unchecked="AppbarButtonEraser_Unchecked" />
                     <AppBarButton x:Name="AppbarButtonClear"
+                                  Margin="1"
                                   Click="AppbarButtonClear_Click"
                                   Foreground="White"
                                   Icon="Clear"
                                   Label="Clear" />
                     <AppBarToggleButton x:Name="AppbarButtonPan"
+                                        Margin="1"
                                         Checked="AppbarButtonPan_Checked"
                                         ClickMode="Press"
                                         Foreground="White"
                                         Icon="BrowsePhotos"
                                         Label="Pannig"
+                                        Style="{StaticResource AppBarToggleButtonStyle}"
                                         Unchecked="AppbarButtonPan_Unchecked" />
                     <AppBarToggleButton x:Name="AppbarButtonGrid"
+                                        Margin="1"
                                         Checked="AppbarButtonGrid_Checked"
                                         ClickMode="Press"
                                         Foreground="White"
                                         Icon="SelectAll"
                                         Label="Grid"
+                                        Style="{StaticResource AppBarToggleButtonStyle}"
                                         Unchecked="AppbarButtonGrid_Unchecked" />
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>

@@ -17,6 +17,19 @@
                     <TextBlock Style="{StaticResource AppTitleTextBlockStyle}" Text="About" />
                 </Grid>
             </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="ShareAppbarButton"
+                              Click="ShareAppbarButton_Click"
+                              Foreground="White"
+                              Label="Share">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  Foreground="White"
+                                  Glyph="&#xE72D;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
+            </CommandBar.PrimaryCommands>
         </CommandBar>
         <ScrollViewer x:Name="PenCanvasScrollViewer"
                       Grid.Row="1"

@@ -23,9 +23,7 @@
                               Foreground="White"
                               Label="Share">
                     <AppBarButton.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
-                                  Foreground="White"
-                                  Glyph="&#xE72D;" />
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
 

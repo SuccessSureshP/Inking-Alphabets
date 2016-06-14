@@ -34,15 +34,28 @@ namespace InkingAlphabets.Model
                 //    InkStream = new InMemoryRandomAccessStream()
                 //});
 
-                var textElementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(alphabetLine);
-                while (textElementEnumerator.MoveNext())
+                var alphabets_list =  alphabetLine.Split(new string[] { " " }, StringSplitOptions.None);
+                foreach(var alphabet in alphabets_list)
                 {
-                    alphabets.Add(new Alphabet()
+                    if (!string.IsNullOrEmpty(alphabet))
                     {
-                        AlphabetCharacter = textElementEnumerator.GetTextElement(),
-                        InkStream = new InMemoryRandomAccessStream()
-                    });
+                        alphabets.Add(new Alphabet()
+                        {
+                            AlphabetCharacter = alphabet,
+                            InkStream = new InMemoryRandomAccessStream()
+                        });
+                    }
                 }
+
+                //var textElementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(alphabetLine);
+                //while (textElementEnumerator.MoveNext())
+                //{
+                //    alphabets.Add(new Alphabet()
+                //    {
+                //        AlphabetCharacter = textElementEnumerator.GetTextElement(),
+                //        InkStream = new InMemoryRandomAccessStream()
+                //    });
+                //}
             }
 
             return alphabets;

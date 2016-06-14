@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="3ff01f80-0925-472b-a6a5-e21a272a85e0" Publisher="CN=lbugn" Version="1.0.0.0" />
+  <Identity Name="24118SureshPokkuluri.InkingAlphabets" Publisher="CN=378BE012-2B8F-476A-9D5F-3D4D3502087E" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="3ff01f80-0925-472b-a6a5-e21a272a85e0" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>InkingAlphabets</DisplayName>
-    <PublisherDisplayName>YourName</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <DisplayName>Inking Alphabets</DisplayName>
+    <PublisherDisplayName>Suresh Pokkuluri</PublisherDisplayName>
+    <Logo>Assets\NewStoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -15,10 +15,14 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="InkingAlphabets.App">
-      <uap:VisualElements DisplayName="Inking Alphabets" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Inking Alphabets" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="Inking Alphabets" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Inking Alphabets" BackgroundColor="#29a9de">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png" ShortName="Inking Alphabets">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#29a9de" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape" />
           <uap:Rotation Preference="landscapeFlipped" />

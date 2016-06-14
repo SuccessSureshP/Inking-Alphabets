@@ -47,7 +47,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="150"
+                        <Border Width="200"
                                 Height="50"
                                 Margin="5"
                                 Background="{ThemeResource SystemControlBackgroundAccentBrush}">

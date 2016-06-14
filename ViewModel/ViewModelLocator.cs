@@ -31,8 +31,7 @@ namespace InkingAlphabets.ViewModel
 
             SimpleIoc.Default.Register<ILanguagesDataService, LanguagesDataService>();
 
-            SimpleIoc.Default.Register<ShellViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ShellViewModel>();            
             SimpleIoc.Default.Register<InkAlphabetsViewModel>();
             SimpleIoc.Default.Register<SelectLanguagePageViewModel>();
             SimpleIoc.Default.Register<AddNewLanguagePageViewModel>();
@@ -43,8 +42,7 @@ namespace InkingAlphabets.ViewModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+            Justification = "This non-static member is needed for data binding purposes.")]        
 
         public InkAlphabetsViewModel InkAlphabetsViewModelInstance => ServiceLocator.Current.GetInstance<InkAlphabetsViewModel>();
 

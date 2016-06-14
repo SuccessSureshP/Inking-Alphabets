@@ -40,6 +40,12 @@ namespace InkingAlphabets
             }
         }
         
+        public static void SetLocalSettingValue(string key, object value)
+        {
+            _localSettings[key] = value;
+        }
+
+
         public static object GetLocalSettingValue(string key)
         {
             object result;
@@ -77,6 +83,8 @@ namespace InkingAlphabets
 
                 case "InkingWordsHighlighterColor": defaultValue = "BlueViolet"; break;
                 case "InkingWordsHighlighterSize": defaultValue = 30; break;
+
+                case "InkingWord": defaultValue = "అమూల్య"; break;
             }
 
             return defaultValue;

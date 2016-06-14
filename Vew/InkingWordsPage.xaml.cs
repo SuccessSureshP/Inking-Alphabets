@@ -63,8 +63,8 @@ namespace InkingAlphabets
                 viewModel.InkStream.Seek(0);
                 await SlateCanvas.InkPresenter.StrokeContainer.LoadAsync(viewModel.InkStream);
             }
-            if (App.Current.Resources.Keys.Contains("InkingWord"))
-                InputTextbox.Text = App.Current.Resources["InkingWord"].ToString();
+            
+           InputTextbox.Text = Common.GetLocalSettingValue("InkingWord").ToString();
 
             ResetToInkPen();
 
@@ -162,7 +162,7 @@ namespace InkingAlphabets
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             viewModel.CacheInkingSlateData();
-            App.Current.Resources["InkingWord"] = InputTextbox.Text;
+            Common.SetLocalSettingValue("InkingWord", InputTextbox.Text);
             //SystemNavigationManager.GetForCurrentView().BackRequested -= Page_BackRequested;
         }
 

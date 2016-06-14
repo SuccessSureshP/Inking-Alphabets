@@ -479,8 +479,7 @@ namespace InkingAlphabets
                     st_items.Add(file);
 
                     request.Data.SetStorageItems(st_items);
-                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabet App!";
-                    request.Data.Properties.Description = "I used Inking Alphabets App to draw this Inking. You can open with same App and edit Ink Strokes.";
+                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabets App! You can open with same App and edit Ink Strokes.";                    
                 }
                 catch (Exception ex)
                 {
@@ -502,8 +501,7 @@ namespace InkingAlphabets
                     var ms = await getFileStream();
                     var randomAccessStreamReference = RandomAccessStreamReference.CreateFromStream(ms);
                     request.Data.SetBitmap(randomAccessStreamReference);
-                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabet App!";
-                    request.Data.Properties.Description = "I used Inking Alphabets App to draw this.";
+                    request.Data.Properties.Title = "Check out my Inking with Inking Alphabets App!";                    
                 }
                 catch (Exception ex)
                 {

@@ -3,7 +3,7 @@ This is Microsoft UWP (Universal Windows Platform) App mainly using new Inking c
 
 This App is already available in Windows Store. Here is the link : https://www.microsoft.com/en-us/store/apps/inking-alphabets/9nblggh5hfv4  
 
-I made it as an open source project so that anyone can contribute if interested, Anyone can take the code to use in their projects. If somebody refactor my code, that way i can learn the best practices and new methodoligies. Think how can we improve this app and lets build together....!
+I made it as an open source project so that anyone can contribute if interested, Anyone can take the code to use in their projects. If somebody refactor my code, that way i can learn the best practices and new methodoligies. Think how can we improve this app and lets build together....! 
 
 Here the technologies/APIs I used in this app. 
 			

@@ -15,5 +15,5 @@ Here the technologies/APIs I used in this app.
 				□ Entity framework 7 for SQLite 
 				□ Hockey App SDK for telemetry
 				□ Win2D.UWP
-				□ Share contracts  
-				□ GitHub and VS-GitHub Integration
+				□ Share contracts
+				
